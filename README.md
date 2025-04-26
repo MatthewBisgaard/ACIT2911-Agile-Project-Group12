@@ -3,3 +3,4 @@
 - Matthew Bisgaard
 - Omar Abdelsalam
 - Katrina de Guzman
+- Zhishang Wang
