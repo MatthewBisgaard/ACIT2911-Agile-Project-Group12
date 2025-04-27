@@ -4,3 +4,4 @@
 - Omar Abdelsalam
 - Katrina de Guzman
 - Zhishang Wang
+- Joshua Domino
