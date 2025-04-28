@@ -5,3 +5,4 @@
 - Katrina de Guzman
 - Zhishang Wang
 - Joshua Domino
+- Aidan Po
