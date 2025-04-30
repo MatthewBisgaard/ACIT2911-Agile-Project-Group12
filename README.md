@@ -6,3 +6,10 @@
 - Zhishang Wang
 - Joshua Domino
 - Aidan Po
+
+# Notes for group members
+Please paste the following in your gitignore
+```
+.venv
+__pycache__
+```

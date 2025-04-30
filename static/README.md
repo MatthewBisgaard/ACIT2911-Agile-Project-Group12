@@ -1,0 +1,1 @@
+This is where static files like css and js files will go
