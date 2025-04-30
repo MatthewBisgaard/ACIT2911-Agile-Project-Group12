@@ -4,34 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do</title>
+
+    <style>
+        table, td{
+            border: 1px solid black ;
+        }
+    </style>
 </head>
 
-<!-- s -->
 
 <body>
 
     <td><button type="button"> Add Item </button></td>
 
+    <h2> List Name </h2>
     <table style="width: 50%">
-        <tr>
-            <th> List Name </th>
-        </tr>
         <th>
                 <td>Item: <br></td>
                 <td>Description: <br></td>
                 <td>Deadline: <br></td>
                 <td>Due in: <br></td>
-                <td><button type="button"> Complete </button></td>
-                <td><button type="button"> Edit </button></td>
-                <td><button type="button"> Remove </button></td>
+                <td>Actions:</td>
         </th>
-        <tr>
-            <td>
-            <button type="button"> Show Completed Tasks </button>
-            </td> 
-        </tr>
 
+        {%for item in list.todos %}
+            <tr>
+                <td>{{item.title}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.Deadline.strftime("%d-%M-%Y %H:%m")}}</td>
+                <td>{{item.due()}}</td>
+                <td><button type="button"> Complete </button>
+                    <button type="button"> Edit </button>
+                    <button type="button"> Remove </button></td>
+
+            </tr>
+        {%endfor%}
     </table>
+    <tr>
+        <td>
+        <button type="button"> Show Completed Tasks </button>
+        </td> 
+    </tr>
     
 </body>
 </html>
