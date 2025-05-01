@@ -1,10 +1,12 @@
 from pathlib import Path
 from flask import Flask, render_template
+from db import db
 
 app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///reminders.db"
 app.instance_path = Path(".").resolve()
+db.init_app(app)
 
 @app.route("/")
 def root_page():
