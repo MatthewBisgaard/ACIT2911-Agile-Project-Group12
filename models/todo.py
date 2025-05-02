@@ -31,7 +31,7 @@ class Todo(db.Model):
         minutes = total_seconds // 60
         hours = minutes // 60
         minutes = minutes - (hours * 60)
-        hour_string = "" if hours<1 else (f"{hours}"+("" if hours == 1 else "s") + " ")
+        hour_string = "" if hours<1 else (f"{hours} Hour"+("" if hours == 1 else "s") + " ")
         minute_string = f"{minutes} Minute"+ ("" if minutes == 1 else "s")
         return f"{hour_string}{minute_string}"
             
