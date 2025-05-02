@@ -15,7 +15,7 @@
 
 <body>
 
-    <td><button type="button"> Add Item </button></td>
+    <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"><button type="button"> Add Item </button></a>
 
     <h2> List Name </h2>
     <table style="width: 50%">
