@@ -19,15 +19,16 @@
 
     <h2> List Name </h2>
     <table style="width: 50%">
-        <th>
-                <td>Item: <br></td>
-                <td>Description: <br></td>
-                <td>Deadline: <br></td>
-                <td>Due in: <br></td>
-                <td>Actions:</td>
-        </th>
+        <tr>
+                <th>Item: </th>
+                <th>Description: </th>
+                <th>Deadline: </th>
+                <th>Due in: </th>
+                <th>Actions:</th>
+                
+        </tr>
 
-        {%for item in list.todos %}
+        {%for item in list.todos%}
             <tr>
                 <td>{{item.title}}</td>
                 <td>{{item.description}}</td>
@@ -36,15 +37,12 @@
                 <td><button type="button"> Complete </button>
                     <button type="button"> Edit </button>
                     <button type="button"> Remove </button></td>
-
             </tr>
         {%endfor%}
     </table>
-    <tr>
-        <td>
-        <button type="button"> Show Completed Tasks </button>
-        </td> 
-    </tr>
+    
+    <button type="button"> Show Completed Tasks </button>
+    
     
 </body>
 </html>
