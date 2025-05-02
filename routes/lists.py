@@ -8,7 +8,7 @@ list_route = Blueprint("lists", __name__)
 def get_list(id):
     """ Renders the todo list template for the list given via ID """
     session = db.session
-    current_list = session.execute(db.select(List).where(List.id == id)).fetchone()
+    current_list = session.execute(db.select(List).where(List.id == id)).scalar()
 
     if current_list is None: # check if the list exists and return a 404 error if it does not
         return f"<h1>404</h1><br><h2>List {id} not found</h2>", 404
