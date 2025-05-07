@@ -63,7 +63,7 @@ def edit_item(id):
     
     return render_template("edit-item-form.html", reminder=current_item)
 
-@reminders_route.route("/edit/<int:id>/completion", methods=["GET"])
+@reminders_route.route("/edit/<int:id>/completion", methods=["POST"])
 def done_edit(id):
     session = db.session
     current_item = session.execute(db.select(Todo).where(Todo.id == id)).scalar()
@@ -71,6 +71,7 @@ def done_edit(id):
         return render_template("error.html", message=f"Item does not exist", code = 404), 404
     
     form = request.form
+    print(form)
     current_item.title = form["item-name"],
     current_item.description = form["description"],
     current_item.deadline = auto_date_parse(form["deadline"]),

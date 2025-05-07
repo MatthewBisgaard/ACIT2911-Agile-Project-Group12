@@ -8,7 +8,7 @@
 <body>
     <h2>Edit Item</h2>
 
-    <form id="add-item-form" action="{{ url_for('reminders.edit_item', id=reminder.id) }}" method="post">
+    <form id="add-item-form" action="{{ url_for('reminders.done_edit', id=reminder.id) }}" method="post">
         <label for="item-name">Item Name:</label><br>
         <input type="text" id="item-name" name="item-name" value="{{reminder.title}}"><br>
 
