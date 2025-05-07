@@ -49,7 +49,7 @@
                 <td>{{item.deadline.strftime("%d-%m-%Y %H:%M")}}</td>
                 <td>{{item.due()}}</td>
                 <td><button type="button"> Complete </button>
-                    <button type="button"> Edit </button>
+                    <a href="{{ url_for('reminders.edit_item', id=item.id)}}"><button type="button"> Edit </button></a>
                     <button type="button"> Remove </button></td>
             </tr>
         {%endfor%}
