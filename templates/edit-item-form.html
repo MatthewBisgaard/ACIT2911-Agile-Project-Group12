@@ -16,7 +16,7 @@
         <textarea id="description" name="description">{{ reminder.description }}</textarea><br>
 
         <label for="deadline">Deadline:</label><br>
-        <input type="datetime-local" id="deadline" name="deadline" value="{{ reminder.deadline.strftime('%Y-%m-%dT%H%M') }}"><br><br>
+        <input type="datetime-local" id="deadline" name="deadline" value="{{ reminder.deadline.strftime('%Y-%m-%dT%H:%M') }}"><br><br>
         
         <button type="submit">Update Item</button>
       </form>
