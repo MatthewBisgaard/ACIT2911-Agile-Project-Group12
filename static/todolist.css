@@ -32,9 +32,9 @@ h2 {
 }
 
 .add-item {
-    position: absolute;
-    right: 808px;
-    top: 40px;
+    position: relative;
+    margin-right: 0px;
+    left: 282px;
 }
 
 .listbutton {
