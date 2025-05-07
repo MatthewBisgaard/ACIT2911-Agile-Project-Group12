@@ -71,10 +71,9 @@ def done_edit(id):
         return render_template("error.html", message=f"Item does not exist", code = 404), 404
     
     form = request.form
-    print(form)
-    current_item.title = form["item-name"],
-    current_item.description = form["description"],
-    current_item.deadline = auto_date_parse(form["deadline"]),
+    current_item.title = form["item-name"]
+    current_item.description = form["description"]
+    current_item.deadline = auto_date_parse(form["deadline"])
     session.add(current_item)
     session.commit()
     return redirect(url_for("lists.get_list", id=current_item.rem_list.id))
