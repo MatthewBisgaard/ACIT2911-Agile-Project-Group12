@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from helpers.date_utils import auto_date_parse
 from models import *
 from db import db
 from datetime import datetime as dt
@@ -61,3 +62,18 @@ def edit_item(id):
         return render_template("error.html", message=f"Item does not exist", code = 404), 404
     
     return render_template("edit-item-form.html", reminder=current_item)
+
+@reminders_route.route("/edit/<int:id>/completion", methods=["GET"])
+def done_edit(id):
+    session = db.session
+    current_item = session.execute(db.select(Todo).where(Todo.id == id)).scalar()
+    if current_item is None: # check if the item exists and return a 404 error if it does not
+        return render_template("error.html", message=f"Item does not exist", code = 404), 404
+    
+    form = request.form
+    current_item.title = form["item-name"],
+    current_item.description = form["description"],
+    current_item.deadline = auto_date_parse(form["deadline"]),
+    session.add(current_item)
+    session.commit()
+    return redirect(url_for("lists.get_list", id=current_item.rem_list.id))
