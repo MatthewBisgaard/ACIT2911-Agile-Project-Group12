@@ -10,13 +10,14 @@
             border: 1px solid black ;
         }
     </style>
+    <link rel="stylesheet" href="../static/todolist.css">
 </head>
 
 
 <body>
 
     <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"><button type="button"> Add Item </button></a>
-    <button type="button"> Sign Out </button>
+    <button class="sign-out" type="button"> Sign Out </button>
 
     <h2> {{list_name}} </h2>
     <table style="width: 50%">
