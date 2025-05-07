@@ -15,8 +15,20 @@
 
 
 <body>
+    <div id="sidenavbar">
+        <h2 id="user-list"> User Lists </h2>
+                <menu>
+                    <li>
+                        <ul class="listbutton"> List 1 </ul>
+                        <ul class="listbutton"> List 1 </ul>
+                        <ul class="listbutton"> List 1 </ul>
+                        <ul class="listbutton"> List 1 </ul>
+                        <ul class="listbutton"> List 1 </ul>
+                    </li>
+                </menu>
+    </div>
     <div id="currentList">
-    <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"><button type="button"> Add Item </button></a>
+    
     <button class="sign-out" type="button"> Sign Out </button>
 
     <h2> {{list_name}} </h2>
@@ -30,7 +42,7 @@
                 
         </tr>
 
-        {%for item in list.todos%}
+        {%for item in list.todos%} 
             <tr>
                 <td>{{item.title}}</td>
                 <td>{{item.description}}</td>
@@ -41,10 +53,13 @@
                     <button type="button"> Remove </button></td>
             </tr>
         {%endfor%}
+        <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"> <button class="add-item" type="button"> Add Item </button></a>
     </table>
     
     <button type="button"> Show Completed Tasks </button>
     </div>
+
+    
     
 </body>
 </html>
