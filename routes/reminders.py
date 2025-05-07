@@ -13,10 +13,11 @@ def mark_reminder_completed_route(id):
     """
     reminder = db.session.execute(db.select(Todo).where(Todo.id == id)).scalar()
     if reminder is None: # test that the reminder exists
-        return "Error 404: Reminder could not be found", 404
-    
+        return render_template("error.html", message=f"Reminder could not be found", code = 404), 404
+
     if reminder.complete: # check reminder not already complete
-        return "Error 409: Reminder already completed", 409
+        return render_template("error.html", message=f"Reminder already completed", code = 409), 409
+
     
     # Set reminder complete
     reminder.complete = True
@@ -36,10 +37,12 @@ def mark_reminder_incomplete_route(id):
     """
     reminder = db.session.execute(db.select(Todo).where(Todo.id == id)).scalar()
     if reminder is None: # test that the reminder exists
-        return "Error 404: Reminder could not be found", 404
+        return render_template("error.html", message=f"Reminder could not be found", code = 404), 404
+
     
     if not reminder.complete: # check reminder already complete
-        return "Error 409: Reminder not currently completed", 409
+        return render_template("error.html", message=f"Reminder not currently completed", code = 409), 409
+
     
     reminder.complete = False
     reminder.completed_on = None
@@ -49,3 +52,12 @@ def mark_reminder_incomplete_route(id):
     db.session.commit()
 
     return redirect(url_for("lists.get_list", id=reminder.rem_list.id))
+
+@reminders_route.route("/edit/<int:id>", method=["GET"])
+def edit_item(id):
+    session = db.session
+    current_item = session.execute(db.select(Todo).where(Todo.id == id)).scalar()
+    if current_item is None: # check if the item exists and return a 404 error if it does not
+        return render_template("error.html", message=f"Item does not exist", code = 404), 404
+    
+    return render_template("edit-item-form.html", reminder=current_item)
