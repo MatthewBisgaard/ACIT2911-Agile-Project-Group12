@@ -4,21 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Item</title>
+    <link rel="stylesheet" href="../static/add-item.css">
 </head>
 <body>
+    <video autoplay loop muted>
+        <source src="/static/resources/wave.mp4" type="video/mp4">
+    </video>
     <h2>Add Item</h2>
 
-    <form id="add-item-form" action="{{ url_for('lists.add_reminder_to_list', id=list.id) }}" method="post">
-        <label for="item-name">Item Name:</label><br>
-        <input type="text" id="item-name" name="item-name"><br>
+    <div class="form-container">
+        <form id="add-item-form" action="{{ url_for('lists.add_reminder_to_list', id=list.id) }}" method="post">
+            <label for="item-name">Item Name:</label><br>
+            <input type="text" id="item-name" name="item-name"><br>
 
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description"></textarea><br>
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description"></textarea><br>
 
-        <label for="deadline">Deadline:</label><br>
-        <input type="date" id="deadline" name="deadline"><br><br>
-        
-        <button type="submit" onclick="alert('Item added')">Add Item</button>
-      </form>
+            <label for="deadline">Deadline:</label><br>
+            <input type="datetime-local" id="deadline" name="deadline"><br><br>
+            
+            <button type="submit" onclick="alert('Item added')">Add Item</button>
+        </form>
+    </div>
 </body>
 </html>

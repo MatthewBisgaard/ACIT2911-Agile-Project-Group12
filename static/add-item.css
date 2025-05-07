@@ -1,0 +1,28 @@
+.form-container {
+    max-width: fit-content;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f900;
+}
+
+#add-item-form {
+    width: 100%;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: white;
+}
+
+video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: -1;
+}
+
+label {
+    color: white;
+}
