@@ -53,7 +53,7 @@ def mark_reminder_incomplete_route(id):
 
     return redirect(url_for("lists.get_list", id=reminder.rem_list.id))
 
-@reminders_route.route("/edit/<int:id>", method=["GET"])
+@reminders_route.route("/edit/<int:id>", methods=["GET"])
 def edit_item(id):
     session = db.session
     current_item = session.execute(db.select(Todo).where(Todo.id == id)).scalar()
