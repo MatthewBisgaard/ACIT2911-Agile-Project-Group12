@@ -24,3 +24,82 @@ h2 {
 .overDue {
     background-color: rgb(255, 0, 0, 0.5);
 }
+
+.sign-out {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.add-item {
+    position: absolute;
+    right: 808px;
+    top: 40px;
+}
+
+.listbutton {
+    background-color: beige;
+    transition: 0.3s;
+}
+
+.listbutton:hover {
+    background-color: bisque;
+    font-size: 30px;
+}
+
+#user-list {
+    font-size: 30px;
+}
+
+#currentList {
+    margin: auto;
+    width: 50%;
+}
+
+#sidenavbar {
+    margin: 0px;
+    background-color: beige;
+    width: 170px;
+    height: 100vh;
+    float: left;
+    position: fixed;
+    
+
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    height: 200vh;
+}
+
+html{
+    margin: 0px;
+    padding: 0px;
+}
+
+h2 {
+    text-align: center;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+
+li {
+    list-style: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    
+}
+
+menu, ul {
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    padding: 20px;
+    font-size: 20px;
+    
+}
