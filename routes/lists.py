@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from helpers.date_utils import auto_date_parse
 from models import *
 from db import db
 from datetime import datetime as dt
@@ -39,7 +40,7 @@ def add_reminder_to_list(id):
     new_reminder = Todo(
         title = form["item-name"],
         description = form["description"],
-        deadline = dt.strptime(form["deadline"], "%Y-%m-%d"),
+        deadline = auto_date_parse(form["deadline"]),
         rem_list = current_list
     )
     session.add(new_reminder)
