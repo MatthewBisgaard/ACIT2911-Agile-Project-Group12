@@ -1,7 +1,7 @@
 from pathlib import Path
 from flask import Flask, render_template
 from db import db
-from routes import list_route
+from routes import list_route, reminders_route
 
 app = Flask(__name__)
 
@@ -10,6 +10,7 @@ app.instance_path = Path(".").resolve()
 db.init_app(app)
 
 app.register_blueprint(list_route, url_prefix="/lists")
+app.register_blueprint(reminders_route, url_prefix="/reminders")
 
 @app.route("/")
 def root_page():
