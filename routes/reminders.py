@@ -77,3 +77,16 @@ def done_edit(id):
     session.add(current_item)
     session.commit()
     return redirect(url_for("lists.get_list", id=current_item.rem_list.id))
+
+@reminders_route.route("/remove/<int:id>", methods=["GET"])
+def rm_todo(id):
+    session = db.session
+    current_item = session.execute(db.select(Todo).where(Todo.id == id)).scalar()
+    item_id = current_item.rem_list.id
+    if current_item is None: # check if the item exists and return a 404 error if it does not
+        return render_template("error.html", message=f"Item does not exist", code = 404), 404
+
+    db.session.delete(current_item)
+    db.session.commit()    
+    
+    return redirect(url_for("lists.get_list", id=item_id))

@@ -50,7 +50,7 @@
                 <td>{{item.due()}}</td>
                 <td><button type="button"> Complete </button>
                     <a href="{{ url_for('reminders.edit_item', id=item.id)}}"><button type="button"> Edit </button></a>
-                    <button type="button"> Remove </button></td>
+                    <a href="{{ url_for('reminders.rm_todo', id=item.id)}}"><button type="button" onclick="alert('Item Removed')" > Remove </button></a></td>
             </tr>
         {%endfor%}
         <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"> <button class="add-item" type="button"> Add Item </button></a>
