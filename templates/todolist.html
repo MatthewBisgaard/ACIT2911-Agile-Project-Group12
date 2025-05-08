@@ -48,7 +48,9 @@
                 <td>{{item.description}}</td>
                 <td>{{item.deadline.strftime("%d-%m-%Y %H:%M")}}</td>
                 <td>{{item.due()}}</td>
-                <td><button type="button"> Complete </button>
+                <td><form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id)}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
+                    <input type="submit" value="{% if not item.complete %} Complete {% else %} Undo-Complete {% endif %}">
+                </form>
                     <a href="{{ url_for('reminders.edit_item', id=item.id)}}"><button type="button"> Edit </button></a>
                     <a href="{{ url_for('reminders.rm_todo', id=item.id)}}"><button type="button" onclick="alert('Item Removed')" > Remove </button></a></td>
             </tr>
