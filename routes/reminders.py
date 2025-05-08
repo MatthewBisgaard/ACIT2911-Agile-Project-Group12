@@ -82,9 +82,9 @@ def done_edit(id):
 def rm_todo(id):
     session = db.session
     current_item = session.execute(db.select(Todo).where(Todo.id == id)).scalar()
-    item_id = current_item.rem_list.id
     if current_item is None: # check if the item exists and return a 404 error if it does not
         return render_template("error.html", message=f"Item does not exist", code = 404), 404
+    item_id = current_item.rem_list.id
 
     db.session.delete(current_item)
     db.session.commit()    

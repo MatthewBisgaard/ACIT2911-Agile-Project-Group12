@@ -116,5 +116,23 @@ def test_error_for_completing_a_compelte_reminder(client):
     res = client.post(f"/reminders/complete/{todo.id}")
     assert res.status_code == 409 # Check you cannot doubel complete
 
+def test_delete_route_for_reminder(client):
+    """ Makes sure the delete route removes a reminder form the database """
+    title = add_test_todo(client)
+    todo = fetch_item_by_uuid(title)
 
+    res = client.get(f"/reminders/remove/{todo.id}")
+    assert res.status_code == 302 # test that client is redirected back to the list
+    res = client.get(f"/lists/1") # NOTE: Issue may arise if tests switch to a different list
+    assert title.encode() not in res.data # Test that the UUID is nolonger on the reminder page
+    assert fetch_item_by_uuid(title) is None # Tests the delete route removes it from the db
 
+def test_delete_route_returns_404_if_not_found(client):
+    """ Makes sure the delete route will return a 404 status code if attempting to delete a reminder which does not exist\n
+     This is acheived by creating then deleting a reminder then attempting to delete it again """
+    title = add_test_todo(client)
+    todo = fetch_item_by_uuid(title)
+
+    client.get(f"/reminders/remove/{todo.id}")
+    res = client.get(f"/reminders/remove/{todo.id}")
+    assert res.status_code == 404
