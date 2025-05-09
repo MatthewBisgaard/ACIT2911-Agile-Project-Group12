@@ -18,13 +18,9 @@
     <div id="sidenavbar">
         <h2 id="user-list"> User Lists </h2>
                 <menu>
-                    <li>
-                        <ul class="listbutton"> List 1 </ul>
-                        <ul class="listbutton"> List 1 </ul>
-                        <ul class="listbutton"> List 1 </ul>
-                        <ul class="listbutton"> List 1 </ul>
-                        <ul class="listbutton"> List 1 </ul>
-                    </li>
+                    {% for u_list in user.lists %}
+                    <li class="listbutton"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{ u_list.name }}</a></li>
+                    {% endfor %}
                 </menu>
     </div>
     <div id="currentList">
