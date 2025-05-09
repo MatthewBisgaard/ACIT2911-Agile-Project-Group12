@@ -10,7 +10,6 @@
             border: 1px solid black ;
         }
     </style>
-    <link rel="stylesheet" href="../static/todolist.css">
 </head>
 
 
@@ -42,7 +41,7 @@
             <tr>
                 <td>{{item.title}}</td>
                 <td>{{item.description}}</td>
-                <td>{{item.deadline.strftime("%d-%m-%Y %H:%M")}}</td>
+                <td>{{item.deadline.strftime("%d-%M-%Y %H:%m")}}</td>
                 <td>{{item.due()}}</td>
                 <td><form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id)}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
                     <input type="submit" value="{% if not item.complete %} Complete {% else %} Undo-Complete {% endif %}">
