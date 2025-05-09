@@ -25,6 +25,15 @@ def dummy_data():
     session.add(reminder1)
     session.add(reminder2)
     session.add(reminder3)
+
+    new_list = List(name="Shopping", user=user)
+    new_reminder1 = Todo(title="Eggs", description="Get organic", rem_list=new_list, deadline=(datetime.now()+timedelta(hours=6)))
+    new_reminder2 = Todo(title="Milk", description="Get lactose free", rem_list=new_list, deadline=(datetime.now()+timedelta(hours=6)))
+    new_reminder3 = Todo(title="Romaine lettuce", description="", rem_list=new_list, deadline=(datetime.now()+timedelta(hours=6)))
+    session.add(new_list)
+    session.add(new_reminder1)
+    session.add(new_reminder2)
+    session.add(new_reminder3)
     session.commit()
     print("dummy data created")
 
