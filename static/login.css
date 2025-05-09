@@ -1,0 +1,21 @@
+#loginForm {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: -1;
+}
+
+h2 {
+    color: white;
+}
+
+label {
+    color: white;
+}

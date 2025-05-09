@@ -14,7 +14,10 @@ def get_list(id):
     if current_list is None: # check if the list exists and return a 404 error if it does not
         return f"<h1>404</h1><br><h2>List {id} not found</h2>", 404
     
-    return render_template("todolist.html", list=current_list)
+    # NOTE: TESTING ONLY
+    user = session.execute(db.select(User).where(User.id == 1)).scalar()
+    
+    return render_template("todolist.html", list=current_list, user=user)
 
 @list_route.route("/<int:id>/add", methods=["GET"])
 def get_add_item_form(id):
