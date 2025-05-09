@@ -46,11 +46,33 @@ def test_delete_route_when_todo_completed(client):
     assert res.status_code == 302
 
 def test_create_reminder_appear_on_webpage(client):
+    """"This test sees if the todo item"""
+    title = add_test_todo(client)
+    todo = fetch_item_by_uuid(title)
+    res= client.get(f"/lists/1")
+    
+    assert title.encode() in res.data
 
+
+def test_edit_route(client):
     title = add_test_todo(client)
     todo = fetch_item_by_uuid(title)
     
-    res= client.get(f"/reminders/edit/1")
-
+    res= client.get(f"/reminders/edit/{todo.id}")
     assert res.status_code == 200
 
+def test_edit_route_changing_item(client):
+
+    title = add_test_todo(client)
+    todo = fetch_item_by_uuid(title)
+    unique_name = str(uuid.uuid4())
+
+    client.get(f"/reminders/edit/{todo.id}")
+    res=client.post(f"/reminders/edit/{todo.id}/completion",data={
+        "item-name": unique_name, 
+        "description": unique_name, 
+        "deadline":"2030-03-09T11:32"
+    })
+
+    
+    assert res.status_code == 302 # redirect to the list works
