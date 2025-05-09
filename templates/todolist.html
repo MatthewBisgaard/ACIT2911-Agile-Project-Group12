@@ -19,7 +19,7 @@
         <h2 id="user-list"> User Lists </h2>
                 <menu>
                     {% for u_list in user.lists %}
-                    <li class="listbutton {% if u_list.id is not list.id %}current-item{%endfor%}"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{ u_list.name }}</a></li>
+                    <li class="listbutton"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{ u_list.name }}</a></li>
                     {% endfor %}
                 </menu>
     </div>
