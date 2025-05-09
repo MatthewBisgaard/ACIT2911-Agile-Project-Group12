@@ -31,7 +31,6 @@ def fetch_item_by_uuid(uuid_string):
     Test Utility function:\n
     Grabs a todo item directly from db by its title (a UUID for tests writted by Matthew)
     """
-    print("hi")
     with app.app_context():
         todo = db.session.execute(db.select(Todo).where(Todo.title == uuid_string)).scalar()
     return todo
@@ -117,7 +116,7 @@ def test_error_for_completing_a_compelte_reminder(client):
     assert res.status_code == 409 # Check you cannot doubel complete
 
 def test_delete_route_for_reminder(client):
-    """ Makes sure the delete route removes a reminder form the database """
+    """ Makes sure the delete route removes a reminder from the database """
     title = add_test_todo(client)
     todo = fetch_item_by_uuid(title)
 
