@@ -23,17 +23,25 @@ class Todo(db.Model):
         now = dt.datetime.now()
         
         diff = self.deadline - now
+
+        past_tense_string = ""
+        # Check to see if the date is in the future or in the past
+        if self.deadline <= now:
+            past_tense_string = " Ago"
+            diff = now - self.deadline
+
         days = diff.days
-        if days>0:
-            return f"{days} Day"+("" if days == 1 else "s")
-    
+        if days > 0:
+            return f"{days} Day"+("" if days == 1 else "s")+past_tense_string
+        
         total_seconds = diff.seconds
         minutes = total_seconds // 60
         hours = minutes // 60
         minutes = minutes - (hours * 60)
         hour_string = "" if hours<1 else (f"{hours} Hour"+("" if hours == 1 else "s") + " ")
         minute_string = f"{minutes} Minute"+ ("" if minutes == 1 else "s")
-        return f"{hour_string}{minute_string}"
+        return f"{hour_string}{minute_string}{past_tense_string}"
+            
             
 
 
