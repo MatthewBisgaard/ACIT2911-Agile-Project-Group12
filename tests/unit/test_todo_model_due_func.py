@@ -43,7 +43,7 @@ def test_todo_model_shows_no_s_if_minute_is_singular():
     assert "1 Minute" in todo.due() # Tests minute shows 1 Minute
     assert "Minutes" not in todo.due() # Tests that minute shows singular
 
-# Tests for the past tense
+# Tests for the past tense =============================================================================================================================
 def test_todo_model_adds_ago_if_overdue():
     """ Makes sure that any variant of todo adds ago at the end of the sentence if it is overdue"""
     three_days_ago = datetime.now()-timedelta(days=5, hours=2)
@@ -55,3 +55,9 @@ def test_todo_model_uses_days_if_overdue():
     three_days_ago = datetime.now()-timedelta(days=5, hours=2)
     todo = Todo(deadline = three_days_ago)
     assert "5 Days" in todo.due() # Tests that it shows 5 days
+
+# Tests for date None values =============================================================================================================================
+def test_todo_model_du_with_none_value():
+    """ Tests to make sure that if no date it set the todo function just returns an empty string """
+    todo = Todo(deadline=None)
+    assert "" == todo.due()

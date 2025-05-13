@@ -23,4 +23,9 @@ def test_date_parse_no_string_given():
     """Makes sure a value error is raised if a string is not given"""
     with pytest.raises(ValueError):
         test_date = auto_date_parse(12345)
+
+def test_none_value_if_string_unparsable():
+    """ Test to make sure the datee parser returns a None value if the date string is unparsable """
+    test_date = auto_date_parse("")
+    assert test_date is None
     
