@@ -32,9 +32,10 @@
     </div>
 
     <div id="currentList">
-        <h2 class="app-name"> What-To-Do </h2>
+        <h2 class="app-name"> Things-To-Do </h2>
 
             <button class="sign-out" type="button"> Sign Out </button>
+            <button class="create-list" type="button"> Create List </button>
 
             <h2> {{list.name}} </h2>
             <table class="lined thick" style="width: 50%">
@@ -43,15 +44,14 @@
                         <th>Description: </th>
                         <th>Deadline: </th>
                         <th>Due in: </th>
-                        <th>Actions:</th>
-                        
+                        <th>Actions:</th>   
                 </tr>
 
                 {%for item in list.todos%} 
                     <tr>
                         <td id="box1">{{item.title}}</td>
                         <td id="box2">{{item.description}}</td>
-                        <td id="box3">{% if item.deadline is ne none %}<{{item.deadline.strftime("%d-%m-%Y %H:%M")}}>{% endif %}</td>
+                        <td id="box3">{% if item.deadline is ne none %} {{item.deadline.strftime("%d-%m-%Y %H:%M")}} {% else %} No Deadline {% endif %}</td>
                         <td id="box4"> {{item.due()}}</td>
                         <td id="box5"><form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id)}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
                             <input type="submit" value="{% if not item.complete %} Complete {% else %} Undo-Complete {% endif %}">
@@ -67,7 +67,6 @@
             <button class="delete-completed-item" type="button"> Delete Completed Reminders </button></a>    
     </div>
 
-    
-    
 </body>
+
 </html>
