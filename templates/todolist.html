@@ -35,7 +35,7 @@
         <h2 class="app-name"> Things-To-Do </h2>
 
             <button class="sign-out" type="button"> Sign Out </button>
-            <button class="create-list" type="button"> Create List </button>
+            <a href="{{ url_for('lists.creation_page', id=user.id)}}"><button class="create-list" type="button"> Create List </button></a>
 
             <h2> {{list.name}} </h2>
             <table class="lined thick" style="width: 50%">
