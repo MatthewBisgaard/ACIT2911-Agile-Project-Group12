@@ -18,8 +18,8 @@ def get_list(id):
     # NOTE: TESTING ONLY
     user = session.execute(db.select(User).where(User.id == 1)).scalar()
 
-    select_query = db.select(Todo).where(Todo.list_id == current_list.id)
     # Logic for order by and show hidden
+    select_query = db.select(Todo).where(Todo.list_id == current_list.id)
     match request.args.get("show", None):
         case "true":
             pass
@@ -27,6 +27,10 @@ def get_list(id):
             select_query = select_query.where(Todo.complete == False)
 
     match request.args.get("order", None):
+        case "created":
+            select_query = select_query.order_by(Todo.created_on.desc())
+        case "title":
+            select_query = select_query.order_by(Todo.title.asc())
         case "deadline":
             select_query = select_query.order_by(Todo.deadline.asc())
 
