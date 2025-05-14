@@ -49,3 +49,17 @@ def add_reminder_to_list(id):
     session.add(new_reminder)
     session.commit()
     return redirect(url_for("lists.get_list", id=id))
+
+@list_route.route("/create_list", methods=["GET"])
+def creation_page():
+    """ Serves the list creation page """
+    return render_template("create-list.html")
+
+@list_route.route("/create_list/completion", methods=["POST"])
+def list_created(list_name):
+    """Creating the list with info user provided"""
+    session = db.session
+    user= session.execute(db.select(User).where(User.id == id)).scalar()
+    new_list = List(name=list_name, user=user)
+    session.add(new_list)
+    return redirect(url_for("lists.get_list", id=id))
