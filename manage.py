@@ -15,7 +15,7 @@ def drop():
 def dummy_data():
     """ A function that inserts some dummy data into the application db for testing"""
     session = db.session
-    user = User(name="Tom", password="1234", username="tom", salt="ab26e0")
+    user = User(name="Tom", password="34378cc61b9629e1b8dbbb1012ae246a958157d00fa8a1b786db72afb1487f9b", username="tom", salt="e638ba27926478b8df2decc68d2b91e5")
     main_list = List(name="Reminders", user=user)
     reminder1 = Todo(title="Buy coffee", deadline=(datetime.now()+timedelta(days=3)), description="Something medium with notes of apricot", rem_list=main_list)
     reminder2 = Todo(title="Feed sourdough starter", deadline=(datetime.now()+timedelta(hours=3)), description="BREAD!", rem_list=main_list)
