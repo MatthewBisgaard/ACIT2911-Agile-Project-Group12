@@ -11,5 +11,16 @@ const updateQueryStringParameter = (uri, key, value) => {
   }
 }
 
+const toggleCompleteShow = () => {
+  
+}
+
+const load_url = location.toString()
+
 // Call this
-const updateURL = (key, value) => location = updateQueryStringParameter(location.toString(), key, value);
+const updateURL = (key, value) => location = updateQueryStringParameter(load_url, key, value);
+window.addEventListener('load', () => {
+  if (load_url.includes("show=true")){
+    document.getElementById
+  }
+})

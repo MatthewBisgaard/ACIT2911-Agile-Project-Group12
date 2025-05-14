@@ -17,8 +17,22 @@ def get_list(id):
     
     # NOTE: TESTING ONLY
     user = session.execute(db.select(User).where(User.id == 1)).scalar()
-    
-    return render_template("todolist.html", list=current_list, user=user)
+
+    select_query = db.select(Todo).where(Todo.list_id == current_list.id)
+    # Logic for order by and show hidden
+    match request.args.get("show", None):
+        case "true":
+            pass
+        case _:
+            select_query = select_query.where(Todo.complete == False)
+
+    match request.args.get("order", None):
+        case "deadline":
+            select_query = select_query.order_by(Todo.deadline.asc())
+
+    reminders = db.session.execute(select_query).scalars()
+
+    return render_template("todolist.html", list=current_list, user=user, reminders=reminders)
 
 @list_route.route("/<int:id>/add", methods=["GET"])
 def get_add_item_form(id):
