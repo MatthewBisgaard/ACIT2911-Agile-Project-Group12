@@ -19,11 +19,11 @@ def login():
     remember = True if "remember" in request.form else False
     
     # Check to see if username or password are blank. These flash rather than send to error
-    if username is None:
+    if username is None or username == "":
         flash("Username cannot be blank")
         return redirect(url_for("auth.login"))
 
-    if password is None:
+    if password is None or password == "":
         flash("Password cannot be blank")
         return redirect(url_for("auth.login"))
     

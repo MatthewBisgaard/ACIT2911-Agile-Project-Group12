@@ -28,16 +28,20 @@ NOTE: Once flash messages implemented on the forntend uncomment the commented as
     # Test missing username
     res = client.post("/auth/login", data={"hashpasswd": "1234"})
     assert res.status_code == 302 # Test redirect
-    # assert b"Username cannot be blank" in res.data
+    res = client.get("/auth/login")
+    assert b"Username cannot be blank" in res.data
 
     # Test missing password
     res = client.post("/auth/login", data={"username": "1234"})
     assert res.status_code == 302 # Test redirect
-    # assert b"Password cannot be blank" in res.data
+    res = client.get("/auth/login")
+    assert b"Password cannot be blank" in res.data
 
     res = client.post("/auth/login")
     assert res.status_code == 302
-    # assert b"cannot be blank" in res.data
+    res = client.get("/auth/login")
+
+    assert b"cannot be blank" in res.data
 
 def test_regular_signin(client, new_user_data):
     """ Tests signing in as a regular user  """
