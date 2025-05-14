@@ -10,6 +10,7 @@
     <video autoplay loop muted>
         <source src="/static/resources/wave.mp4" type="video/mp4">
     </video>
+    <a href="{{ url_for('auth.login') }}"><button>Sign-In</button></a>
     <div id="signupForm">
         <h2>Sign Up</h2>
 
@@ -24,13 +25,14 @@
         <label for="password">Confirm Password:</label><br>
         <input type="password" id="confirm" name="confirm" placeholder="Password"><br><br>
 
-        <form action="{{ url_for('auth.signup') }}" method="post">
-            <input type="text" id="hidden-username" name="username" hidden="true">
+        <form action="{{ url_for('auth.signup') }}" method="post" id="main-form">
+            <input type="text" id="hiddenusername" name="username" hidden="true">
             <input type="text" id="hashpasswd" name="hashpasswd" hidden="true">
             <input type="text" id="hidden-name" name="name" hidden="true">
         </form> 
-        <input type="submit" value="Submit">
-       
+        <input type="submit" value="Submit" id="submit" disabled="true" onclick="startSignup()">
     </div>
+    <script src="/static/js/signUpPageInteractivity.js"></script>
+    <script src="/static/js/passwordHashing.js"></script>
 </body>
 </html>
