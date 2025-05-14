@@ -16,6 +16,12 @@
     right: 10px;
 }
 
+.create-list {
+    position: fixed;
+    top: 10px;
+    left: 180px;
+}
+
 .add-item { 
     /* Need to fix this button */
 }
