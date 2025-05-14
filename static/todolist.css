@@ -68,6 +68,10 @@
     position: fixed;
 }
 
+#list-container {
+    margin-left: 110px;
+}
+
 body {
     background-image: url("/static/resources/lined-paper.png");
     font-family:"Pangolin";
