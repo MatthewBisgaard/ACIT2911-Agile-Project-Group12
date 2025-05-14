@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Rename List</h1>
-    <form id="rename-form">
+    <form id="rename-form" action="{{ url_for('lists.list_created', id=user)}}" method="post">
         <label for="list-name">Current List Name:{{list.name}}</label>
         <br>
         <label for="new-list-name">New List Name:</label>
