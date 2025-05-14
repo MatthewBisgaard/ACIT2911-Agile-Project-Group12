@@ -52,12 +52,12 @@ def signup():
     
     # Generate a salt for the new user
     new_salt = secrets.token_hex(32)
-    hash = hashlib.sha256(password.encode)
+    hash = hashlib.sha256(password.encode())
     hash.update(new_salt.encode())
     password = hash.hexdigest()
     
     # Create the new user and add them to the database
-    new_user = User(username=username, name="", password=password, salt=new_salt)
+    new_user = User(username=username, name=name, password=password, salt=new_salt)
     db.session.add(new_user)
     db.session.commit()
     
