@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Things To Do</title>
+    <link rel="stylesheet" href="/static/homepage.css">
+</head>
+<body>
+    <h1>Things To Do</h1>
+    <div class="homepage">
+        <p>
+            Things To Do: A simple way to keep track of your tasks and reminders.
+        </p>
+        <div class="actions">
+            <a href="{{ url_for('auth.get_login') }}">Login</a>
+            <a href="{{ url_for('auth.get_signup') }}">Sign Up</a>
+        </div>
+    </div>
+</body>
+</html>
