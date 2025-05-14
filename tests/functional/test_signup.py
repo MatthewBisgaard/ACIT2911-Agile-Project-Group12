@@ -58,3 +58,7 @@ def test_error_page_redirect_upon_missing_values(client, new_user_data):
     res = client.post("/auth/signup", data=new_user_data)
     assert res.status_code == 400 # Check failure on missing password
 
+def test_get_signup_page(client):
+    """ Test that a get request to the signup route will serve the signup page (Looks at title) """
+    res = client.get("/auth/signup")
+    assert b"<title>Sign Up</title>" in res.data

@@ -53,4 +53,9 @@ def test_regular_signin(client, new_user_data):
 
     res = client.post("/auth/login", data=new_user_data)
     assert client.get_cookie("session") is not None # Test signin cookie received
-    assert res.status_code == 302 # Test redirect after successful signin
+    assert res.status_code == 302 # Test redirect after successful 
+    
+def test_get_signin_page(client):
+    """ Test that a get request to the route will get the login page (Looks at title)"""
+    res = client.get("/auth/login")
+    assert b"<title>Log In</title>" in res.data
