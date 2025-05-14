@@ -68,6 +68,10 @@
     position: fixed;
 }
 
+#background {
+    
+}
+
 body {
     background-image: url("/static/resources/lined-paper.png");
     font-family:"Pangolin";
