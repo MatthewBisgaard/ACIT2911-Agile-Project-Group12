@@ -18,6 +18,15 @@ def login():
     password = request.form.get("hashpasswd", None).strip()
     remember = True if "remember" in request.form else False
     
+    # Check to see if username or password are blank. These flash rather than send to error
+    if username is None:
+        flash("Username cannot be blank")
+        return redirect(url_for("auth.login"))
+
+    if password is None:
+        flash("Password cannot be blank")
+        return redirect(url_for("auth.login"))
+
     user = db.session.execute(db.select(User).where(User.username == username)).scalar()
     if user is None: # Redirect if user is not found
         flash("Username or password may be correct")
@@ -39,16 +48,23 @@ def signup():
     if request.method == "GET":
         return render_template("signup.html")
     
-    # Get the username and password from the request
+    # Get the username, password and name from the request
     username = request.form.get("username", None).strip()
     password = request.form.get("hashpasswd", None).strip()
-    name = request.form.get("name", None).strip()
+    name = request.form.get("name", username).strip()
+
+    # Check if username or password values are empty. The name will default to username if left blank
+    if username is None:
+        return render_template("error.html", code=400, message="Username field cannot be left blank"), 400
+    
+    if password is None:
+        return render_template("error.html", code=400, message="Password field cannot be left blank"), 400
 
     # Check that the username is not in use
     user = db.session.execute(db.select(User).where(User.username == username)).scalar()
     if user is not None:
         flash("That username already exists")
-        return redirect(url_for("auth.signup"))
+        return redirect(url_for("auth.signup")), 409
     
     # Generate a salt for the new user
     new_salt = secrets.token_hex(32)
