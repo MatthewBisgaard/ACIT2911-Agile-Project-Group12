@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {{list.name}} </title>
 
+    <link href="https://fonts.cdnfonts.com/css/pencil-2" rel="stylesheet"> 
+      <!-- #Font Choice 1           -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Pangolin&display=swap" rel="stylesheet"> 
+    <!-- #Font Choice 2 -->
+    <title> {{list.name}} </title>
     <style>
+        @import url('https://fonts.cdnfonts.com/css/pencil-2'); /* Font 1 import */
         table, td{
             border: 1px solid black ;
         }
@@ -13,8 +20,8 @@
     <link rel="stylesheet" href="/static/todolist.css">
 </head>
 
-
 <body>
+
     <div id="sidenavbar">
         <h2 id="user-list"> User Lists </h2>
                 <menu>
@@ -23,38 +30,41 @@
                     {% endfor %}
                 </menu>
     </div>
+
     <div id="currentList">
-    
-    <button class="sign-out" type="button"> Sign Out </button>
+        <h2 class="app-name"> What-To-Do </h2>
 
-    <h2> {{list.name}} </h2>
-    <table style="width: 50%">
-        <tr>
-                <th>Item: </th>
-                <th>Description: </th>
-                <th>Deadline: </th>
-                <th>Due in: </th>
-                <th>Actions:</th>
-                
-        </tr>
+            <button class="sign-out" type="button"> Sign Out </button>
 
-        {%for item in list.todos%} 
-            <tr>
-                <td>{{item.title}}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.deadline.strftime("%d-%m-%Y %H:%M")}}</td>
-                <td>{{item.due()}}</td>
-                <td><form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id)}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
-                    <input type="submit" value="{% if not item.complete %} Complete {% else %} Undo-Complete {% endif %}">
-                </form>
-                    <a href="{{ url_for('reminders.edit_item', id=item.id)}}"><button type="button"> Edit </button></a>
-                    <a href="{{ url_for('reminders.rm_todo', id=item.id)}}"><button type="button" onclick="alert('Item Removed')" > Remove </button></a></td>
-            </tr>
-        {%endfor%}
-        <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"> <button class="add-item" type="button"> Add Item </button></a>
-    </table>
-    
-    <button type="button"> Show Completed Tasks </button>
+            <h2> {{list.name}} </h2>
+            <table class="lined thick" style="width: 50%">
+                <tr>
+                        <th>Item: </th>
+                        <th>Description: </th>
+                        <th>Deadline: </th>
+                        <th>Due in: </th>
+                        <th>Actions:</th>
+                        
+                </tr>
+
+                {%for item in list.todos%} 
+                    <tr>
+                        <td id="box1">{{item.title}}</td>
+                        <td id="box2">{{item.description}}</td>
+                        <td id="box3">{% if item.deadline is ne none %}<{{item.deadline.strftime("%d-%m-%Y %H:%M")}}>{% endif %}</td>
+                        <td id="box4"> {{item.due()}}</td>
+                        <td id="box5"><form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id)}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
+                            <input type="submit" value="{% if not item.complete %} Complete {% else %} Undo-Complete {% endif %}">
+                        </form>
+                            <a href="{{ url_for('reminders.edit_item', id=item.id)}}"><button type="button"> Edit </button></a>
+                            <a href="{{ url_for('reminders.rm_todo', id=item.id)}}"><button type="button" onclick="alert('Item Removed')" > Remove </button></a></td>
+                    </tr>
+                {%endfor%}
+                <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"> <button class="add-item" type="button"> Add Item </button></a>
+            </table>
+            
+            <button type="button"> Show Completed Tasks </button>
+            <button class="delete-completed-item" type="button"> Delete Completed Reminders </button></a>    
     </div>
 
     
