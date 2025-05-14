@@ -17,9 +17,10 @@
 }
 
 .create-list {
-    position: fixed;
-    top: 10px;
-    left: 180px;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 .add-item { 
@@ -33,11 +34,12 @@
 .listbutton {
     background-color: beige;
     transition: 0.3s;
+    min-width: 100%;
 }
 
 .listbutton:hover {
     background-color: bisque;
-    font-size: 30px;
+    
 }
 
 .app-name {
@@ -48,6 +50,7 @@
 #user-list {
     font-size: 30px;
     text-align: center;
+    margin-bottom: 0px;
 }
 
 #currentList {
@@ -59,10 +62,14 @@
 #sidenavbar {
     margin: 0px;
     background-color: beige;
-    width: 170px;
+    width: 220px;
     height: 100vh;
     float: left;
     position: fixed;
+}
+
+#list-container {
+    margin-left: 110px;
 }
 
 body {
@@ -86,11 +93,9 @@ h2 {
 
 li {
     list-style: none;
-    text-align: center;
+    text-align: left;
     margin: 0;
     padding: 0;
-    text-align: center;
-    
 }
 
 menu, ul {
@@ -107,6 +112,8 @@ ul {
 a {
     color: black;
     text-decoration: none;
+    text-align: left;
+
 }
 
 button, input {
@@ -115,7 +122,7 @@ button, input {
 }
 
 input:hover, button:hover {
-    font-size: larger;
+    background-color: rgba(0, 0, 0, 0.185);
 }
 
 table.lined.thick{

@@ -68,7 +68,8 @@ def list_created(id):
 @list_route.route("/rename_list/<int:id>", methods=["GET"])
 def list_rename_page(id):
     """Sends the HTML Rename page to the user"""
-    return render_template("create-list.html", list=id)
+    session = db.session
+    return render_template("rename-list.html", list=session.execute(db.select(List).where(List.id == id)).scalar())
 
 @list_route.route("/rename_list/<int:id>/completion", methods=["POST"])
 def list_rename_done(id):
@@ -76,7 +77,7 @@ def list_rename_done(id):
     session = db.session
     form = request.form
     current_list = session.execute(db.select(List).where(List.id == id)).scalar()
-    current_list.title = form["new-list-name"]
+    current_list.name = form["new-list-name"]
     session.add(current_list)
     session.commit()
     return redirect(url_for("lists.get_list", id=current_list.id))
