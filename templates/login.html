@@ -21,7 +21,7 @@
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password"><br><br>
         
-        <form action="{{url_for('auth.login')}}" method="post" id="main-form">
+        <form action="{{url_for('auth.login', next=request.args.get('next', None))}}" method="post" id="main-form">
             <input type="text" id="hiddenusername" name="username" hidden="true">
             <input type="text" id="hashpasswd" name="hashpasswd" hidden="true">
             <input type="checkbox" id="remember" name="remember" value="remember" checked>
