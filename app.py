@@ -12,6 +12,8 @@ app.secret_key = secrets.token_hex().encode()
 # Authentication setup
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = "auth.login"
+login_manager.login_message = "It appears you are not signed in. Please sign in here."
 
 @login_manager.user_loader
 def user_loader(user_id):
