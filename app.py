@@ -30,10 +30,9 @@ app.register_blueprint(list_route, url_prefix="/lists")
 app.register_blueprint(reminders_route, url_prefix="/reminders")
 app.register_blueprint(auth_route, url_prefix="/auth")
 
-@app.route("/", methods=["POST"])
+@app.route("/")
 def root_page():
     """ Function used for the homepage of the application """
-    print(request.form)
     return "Flask is operational"
 
 if __name__=="__main__":
