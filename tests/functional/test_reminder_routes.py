@@ -11,6 +11,7 @@ def client():
     """ Testing client for functions regarding completion """
     app.config["TESTING"] = True
     with app.test_client() as client:
+        client.post("/auth/login", data={"username":"tom", "hashpasswd": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"})
         yield client
 
 def add_test_todo(client):
