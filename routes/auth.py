@@ -14,8 +14,8 @@ def login():
         return render_template("login.html")
     
     # Get the username and password from the request
-    username = request.form.get("username", None).strip()
-    password = request.form.get("hashpasswd", None).strip()
+    username = request.form.get("username", None)
+    password = request.form.get("hashpasswd", None)
     remember = True if "remember" in request.form else False
     
     # Check to see if username or password are blank. These flash rather than send to error
@@ -26,6 +26,10 @@ def login():
     if password is None:
         flash("Password cannot be blank")
         return redirect(url_for("auth.login"))
+    
+    # Strip Username and password
+    username = username.strip()
+    password = password.strip()
 
     user = db.session.execute(db.select(User).where(User.username == username)).scalar()
     if user is None: # Redirect if user is not found
@@ -49,9 +53,9 @@ def signup():
         return render_template("signup.html")
     
     # Get the username, password and name from the request
-    username = request.form.get("username", None).strip()
-    password = request.form.get("hashpasswd", None).strip()
-    name = request.form.get("name", username).strip()
+    username = request.form.get("username", None)
+    password = request.form.get("hashpasswd", None)
+    name = request.form.get("name", username)
 
     # Check if username or password values are empty. The name will default to username if left blank
     if username is None:
@@ -59,6 +63,11 @@ def signup():
     
     if password is None:
         return render_template("error.html", code=400, message="Password field cannot be left blank"), 400
+    
+    # Strip values of trailing spaces
+    username = username.strip()
+    password = password.strip()
+    name = name.strip()
 
     # Check that the username is not in use
     user = db.session.execute(db.select(User).where(User.username == username)).scalar()
