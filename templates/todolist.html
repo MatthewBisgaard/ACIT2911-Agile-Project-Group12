@@ -38,6 +38,7 @@
 
                 <h2> {{list.name}} </h2>
                 <table class="lined thick">
+
                     <tr>
                             <th>Item: </th>
                             <th>Description: </th>
@@ -45,7 +46,6 @@
                             <th>Due in: </th>
                             <th>Actions:</th>   
                     </tr>
-
                     {%for item in list.todos%} 
                         <tr>
                             <td id="box1">{{item.title}}</td>
@@ -62,10 +62,17 @@
                     <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"> <button class="add-item" type="button"> Add Item </button></a>
                 </table>
                 
-                <button type="button"> Show Completed Tasks </button>
-                <button class="delete-completed-item" type="button"> Delete Completed Reminders </button></a>    
+                            <button id="toggle-completed" onclick="toggleCompleteShow()" type="button"></button>
+                        <button class="delete-completed-item" type="button"> Delete Completed Reminders </button> <br>
+            <label>Sort by:</label>
+            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'deadline')">Urgency</button>
+            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'title')">Title</button>
+            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'created')">Date Created</button>
+  
         </div>
+  
     </div>
+<script src="/static/js/queryUpdate.js"></script>
 </body>
 
 </html>
