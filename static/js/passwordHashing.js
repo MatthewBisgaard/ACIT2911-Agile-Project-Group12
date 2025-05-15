@@ -1,18 +1,20 @@
 
 const userExists = async (callback) => {
-    let username = document.querySelector("#username").value;
-    const req = await fetch(`/auth/exists/${username}`, { method: 'GET'})
-    if (req.ok){
-        callback(undefined, true);
-    } else if (req.status==404) {
-        callback(undefined, false)
-    } else{
-        callback(Error("Code unknown"))
-    }
+    // This fucntions user checking has been disabled for the time being
+    // let username = document.querySelector("#username").value;
+    // const req = await fetch(`/auth/exists/${username}`, { method: 'GET'})
+    // if (req.ok){
+        // 
+    // } else if (req.status==404) {
+        // callback()
+    // } else{
+// 
+    // }
+    document.getElementById("hidden-name").value = document.getElementById("name").value;
+    callback();
 }
 
-const hashPasswdThenSubmit = async (err, issueProceeding) => {
-    if (err || issueProceeding) return;
+const hashPasswdThenSubmit = async () => {
     // SOme code here comes from mozilla
     const passwd8 = new TextEncoder().encode(`${document.getElementById("password").value}`);
     const hashArrayBuffer = await window.crypto.subtle.digest("SHA-256", passwd8);
@@ -26,7 +28,7 @@ const hashPasswdThenSubmit = async (err, issueProceeding) => {
     document.getElementById("main-form").submit()
 }
 
-const startLogin = () => hashPasswdThenSubmit(undefined, false);
+const startLogin = () => hashPasswdThenSubmit();
 const startSignup = () => userExists(hashPasswdThenSubmit);
 const enterKeyPress = (event) => { if (event.key == "Enter") document.getElementById("submit").click() };
 
