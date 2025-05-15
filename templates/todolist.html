@@ -24,49 +24,49 @@
 
     <div id="sidenavbar">
         <h2 id="user-list"> User Lists </h2>
+        <button class="create-list" type="button"> Create List </button>
                 <menu>
                     {% for u_list in user.lists %}
-                    <li class="listbutton"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{ u_list.name }}</a></li>
+                    <li class="listbutton" style="float: left;"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{ u_list.name }}</a><span style="float: right;"><a href="">🖊️</a><a href="">🗑️</a></span></li>
                     {% endfor %}
                 </menu>
     </div>
+    <div id="list-container">
+        <div id="currentList">
+            <h2 class="app-name"> Things-To-Do </h2>
 
-    <div id="currentList">
-        <h2 class="app-name"> Things-To-Do </h2>
+                <button class="sign-out" type="button"> Sign Out </button>
 
-            <button class="sign-out" type="button"> Sign Out </button>
-            <button class="create-list" type="button"> Create List </button>
-
-            <h2> {{list.name}} </h2>
-            <table class="lined thick" style="width: 50%">
-                <tr>
-                        <th>Item: </th>
-                        <th>Description: </th>
-                        <th>Deadline: </th>
-                        <th>Due in: </th>
-                        <th>Actions:</th>   
-                </tr>
-
-                {%for item in list.todos%} 
+                <h2> {{list.name}} </h2>
+                <table class="lined thick">
                     <tr>
-                        <td id="box1">{{item.title}}</td>
-                        <td id="box2">{{item.description}}</td>
-                        <td id="box3">{% if item.deadline is ne none %} {{item.deadline.strftime("%d-%m-%Y %H:%M")}} {% else %} No Deadline {% endif %}</td>
-                        <td id="box4"> {{item.due()}}</td>
-                        <td id="box5"><form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id)}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
-                            <input type="submit" value="{% if not item.complete %} Complete {% else %} Undo-Complete {% endif %}">
-                        </form>
-                            <a href="{{ url_for('reminders.edit_item', id=item.id)}}"><button type="button"> Edit </button></a>
-                            <a href="{{ url_for('reminders.rm_todo', id=item.id)}}"><button type="button" onclick="alert('Item Removed')" > Remove </button></a></td>
+                            <th>Item: </th>
+                            <th>Description: </th>
+                            <th>Deadline: </th>
+                            <th>Due in: </th>
+                            <th>Actions:</th>   
                     </tr>
-                {%endfor%}
-                <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"> <button class="add-item" type="button"> Add Item </button></a>
-            </table>
-            
-            <button type="button"> Show Completed Tasks </button>
-            <button class="delete-completed-item" type="button"> Delete Completed Reminders </button></a>    
-    </div>
 
+                    {%for item in list.todos%} 
+                        <tr>
+                            <td id="box1">{{item.title}}</td>
+                            <td id="box2">{{item.description}}</td>
+                            <td id="box3">{% if item.deadline is ne none %} {{item.deadline.strftime("%d-%m-%Y %H:%M")}} {% else %} No Deadline {% endif %}</td>
+                            <td id="box4"> {{item.due()}}</td>
+                            <td id="box5"><form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id)}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
+                                <input type="submit" value="{% if not item.complete %} Complete {% else %} Undo-Complete {% endif %}">
+                            </form>
+                                <a href="{{ url_for('reminders.edit_item', id=item.id)}}"><button type="button"> Edit </button></a>
+                                <a href="{{ url_for('reminders.rm_todo', id=item.id)}}"><button type="button" onclick="alert('Item Removed')" > Remove </button></a></td>
+                        </tr>
+                    {%endfor%}
+                    <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"> <button class="add-item" type="button"> Add Item </button></a>
+                </table>
+                
+                <button type="button"> Show Completed Tasks </button>
+                <button class="delete-completed-item" type="button"> Delete Completed Reminders </button></a>    
+        </div>
+    </div>
 </body>
 
 </html>
