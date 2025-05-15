@@ -34,8 +34,7 @@
     <div id="list-container">
         <div id="currentList">
             <h2 class="app-name"> Things-To-Do </h2>
-
-                <button class="sign-out" type="button"> Sign Out </button>
+                <a href="{{ url_for('auth.logout')}}"><button class="sign-out" type="button"> Sign Out </button></a>
 
                 <h2> {{list.name}} </h2>
                 <table class="lined thick">
