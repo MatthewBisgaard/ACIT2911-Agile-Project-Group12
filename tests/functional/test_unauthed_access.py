@@ -46,32 +46,46 @@ def client_authed():
         yield client
 
 
-# Test unauthenticated use of routes
+# Test unauthenticated use of routes. They used to test for code 401 but they now test for a redirect to the login page
 
 def test_unauthenticated_delete_reminders(client):
-    """Checks to see if a code 401 is sent when deleting a reminder when not signed in """
+    """Checks to see if a code 302 is sent when deleting a reminder when not signed in """
     res = client.get("/reminders/remove/1")
-    assert res.status_code == 401 # No permission to use route
+    assert res.status_code == 302 # No permission to use route
+
+    res = client.get(f"/auth/login") # test that the message shows
+    assert b"It appears you are not signed in. Please sign in here." in res.data
 
 def test_unauthenticated_mark_complete_incomplete(client):
-    """ Tests to make sure a code 401 is returned when trying to mark a reminder as complete/incomplete when not signed in """
+    """ Tests to make sure a code 302 is returned when trying to mark a reminder as complete/incomplete when not signed in """
     res = client.post(f"/reminders/complete/1")
-    assert res.status_code == 401 # Reminder not able to be completed
+    assert res.status_code == 302 # Reminder not able to be completed
+    res = client.get(f"/auth/login")
+    assert b"It appears you are not signed in. Please sign in here." in res.data
 
     res = client.post(f"/reminders/de-complete/1")
-    assert res.status_code == 401 # Reminder not able to be decompleted
+    assert res.status_code == 302 # Reminder not able to be decompleted
+    res = client.get(f"/auth/login")
+    assert b"It appears you are not signed in. Please sign in here." in res.data
+
 
 def test_unauthenticated_edit_get_and_post(client):
     """ Test that an unauthenticated in user can neither get the edit page or complete a reminder edit """
     res = client.get("/reminders/edit/1")
-    assert res.status_code == 401 # No permission to edit that item
+    assert res.status_code == 302 # No permission to edit that item
+    res = client.get(f"/auth/login")
+    assert b"It appears you are not signed in. Please sign in here." in res.data
+
 
     res = client.post("/reminders/edit/1/completion", data={
         "item-name": "The Great Gig In The Sky",
         "description": "Immigrant Song",
         "deadline": "1977-02-22T00:01"
     })
-    assert res.status_code == 401 # No permission to post
+    assert res.status_code == 302 # No permission to post
+    res = client.get(f"/auth/login")
+    assert b"It appears you are not signed in. Please sign in here." in res.data
+
 
 # Test unauthorized use of routes
 

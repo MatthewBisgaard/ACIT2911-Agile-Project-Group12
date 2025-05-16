@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rename List</title>
+</head>
+<body>
+    <h1>Rename List</h1>
+    <form id="rename-form" action="{{ url_for('lists.list_rename_done', id=list.id)}}" method="post">
+        <label for="list-name">Current List Name: {{list.name}}</label>
+        <br>
+        <label for="new-list-name">New List Name:</label>
+        <input type="text" id="new-list-name" name="new-list-name">
+        <br>
+        <button type="submit">Rename List</button>
+    </form>
+</body>
+</html>

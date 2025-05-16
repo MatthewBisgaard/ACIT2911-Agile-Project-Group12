@@ -23,22 +23,21 @@
 <body>
 
     <div id="sidenavbar">
-        <h2 id="user-list"> User Lists </h2>
-        <button class="create-list" type="button"> Create List </button>
+        <a href="{{ url_for('dashboard')}}" style="float: left;">🏠</a><h2 id="user-list"> User Lists </h2>
+        <a href="{{ url_for('lists.creation_page')}}"><button class="create-list" type="button"> Create List </button></a>
                 <menu>
                     {% for u_list in user.lists %}
-                    <li class="listbutton" style="float: left;"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{ u_list.name }}</a><span style="float: right;"><a href="">🖊️</a><a href="">🗑️</a></span></li>
+                    <li class="listbutton" style="float: left;"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{ u_list.name }}</a>
+                        <span style="float: right;"><a href="{{ url_for('lists.list_rename_page', id=list.id) }}">🖊️</a><a href="{{ url_for('lists.list_delete_page', id=list.id)}}">🗑️</a></span></li>
                     {% endfor %}
                 </menu>
     </div>
     <div id="list-container">
         <div id="currentList">
             <h2 class="app-name"> Things-To-Do </h2>
-
-                <button class="sign-out" type="button"> Sign Out </button>
+                <a href="{{ url_for('auth.logout')}}"><button class="sign-out" type="button"> Sign Out </button></a>
 
                 <h2> {{list.name}} </h2>
-
              <div class="table-wrapper"> <!--made to ensure table and add item stay aligned with same margins -->
                     <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"> <button class="add-item" type="button"> Add Item </button></a>
                     <table class="lined thick">
@@ -66,10 +65,16 @@
                     </table>
             </div>
                 
-                <button class="show-completed-tasks" type="button"> Show Completed Tasks </button>
-                <button class="delete-completed-item" type="button"> Delete Completed Reminders </button></a>    
+                            <button id="toggle-completed" onclick="toggleCompleteShow()" type="button"></button>
+                        <button class="delete-completed-item" type="button"> Delete Completed Reminders </button> <br>
+            <label>Sort by:</label>
+            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'deadline')">Urgency</button>
+            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'title')">Title</button>
+            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'created')">Date Created</button>
         </div>
+  
     </div>
+<script src="/static/js/queryUpdate.js"></script>
 </body>
 
 </html>

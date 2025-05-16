@@ -41,7 +41,14 @@ def login():
     hash.update(user.salt.encode())
     if user.password == hash.hexdigest():
         login_user(user, remember=remember)
-        return redirect("/")
+        
+        # Check if there is a next argument and save the value
+        redirect_url = request.args.get("next", None)
+
+        if redirect_url is None:
+            return redirect(url_for('dashboard'))
+        else:
+            return redirect(redirect_url)
     
     flash("Username or password may be correct")
     return redirect(url_for("auth.login"))
