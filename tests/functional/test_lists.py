@@ -34,7 +34,3 @@ def fetch_item_by_uuid(uuid_string):
     with app.app_context():
         todo = db.session.execute(db.select(Todo).where(Todo.title == uuid_string)).scalar()
     return todo
-
-def creating_list(client):
-    """Test to make sure list is being created"""
-    title = 
