@@ -46,13 +46,14 @@
                             <th>Due in: </th>
                             <th>Actions:</th>   
                     </tr>
-                    {%for item in list.todos%} 
+                    {%for item in reminders%} 
                         <tr>
                             <td id="box1">{{item.title}}</td>
                             <td id="box2">{{item.description}}</td>
                             <td id="box3">{% if item.deadline is ne none %} {{item.deadline.strftime("%d-%m-%Y %H:%M")}} {% else %} No Deadline {% endif %}</td>
                             <td id="box4"> {{item.due()}}</td>
-                            <td id="box5"><form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id)}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
+                            <td id="box5">
+                            <form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id, show=request.args.get('show', None), order=request.args.get('order', None) )}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
                                 <input type="submit" value="{% if not item.complete %} Complete {% else %} Undo-Complete {% endif %}">
                             </form>
                                 <a href="{{ url_for('reminders.edit_item', id=item.id)}}"><button type="button"> Edit </button></a>
