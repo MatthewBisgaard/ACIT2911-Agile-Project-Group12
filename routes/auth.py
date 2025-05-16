@@ -46,7 +46,7 @@ def login():
         redirect_url = request.args.get("next", None)
 
         if redirect_url is None:
-            return redirect("/")
+            return redirect(url_for('dashboard'))
         else:
             return redirect(redirect_url)
     

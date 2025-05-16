@@ -23,11 +23,12 @@
 <body>
 
     <div id="sidenavbar">
-        <h2 id="user-list"> User Lists </h2>
-        <button class="create-list" type="button"> Create List </button>
+        <a href="{{ url_for('dashboard')}}" style="float: left;">🏠</a><h2 id="user-list"> User Lists </h2>
+        <a href="{{ url_for('lists.creation_page')}}"><button class="create-list" type="button"> Create List </button></a>
                 <menu>
                     {% for u_list in user.lists %}
-                    <li class="listbutton" style="float: left;"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{ u_list.name }}</a><span style="float: right;"><a href="">🖊️</a><a href="">🗑️</a></span></li>
+                    <li class="listbutton" style="float: left;"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{ u_list.name }}</a>
+                        <span style="float: right;"><a href="{{ url_for('lists.list_rename_page', id=list.id) }}">🖊️</a><a href="{{ url_for('lists.list_delete_page', id=list.id)}}">🗑️</a></span></li>
                     {% endfor %}
                 </menu>
     </div>
@@ -38,7 +39,6 @@
 
                 <h2> {{list.name}} </h2>
                 <table class="lined thick">
-
                     <tr>
                             <th>Item: </th>
                             <th>Description: </th>
@@ -46,6 +46,7 @@
                             <th>Due in: </th>
                             <th>Actions:</th>   
                     </tr>
+
                     {%for item in reminders%} 
                         <tr>
                             <td id="box1">{{item.title}}</td>
@@ -62,7 +63,6 @@
                     {%endfor%}
                     <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"> <button class="add-item" type="button"> Add Item </button></a>
                 </table>
-                
                             <button id="toggle-completed" onclick="toggleCompleteShow()" type="button"></button>
                         <button class="delete-completed-item" type="button"> Delete Completed Reminders </button> <br>
             <label>Sort by:</label>

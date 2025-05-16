@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.name }}'s Dashboard</title>
+    <link href="https://fonts.cdnfonts.com/css/pencil-2" rel="stylesheet"> 
+      <!-- #Font Choice 1           -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Pangolin&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="/static/todolist.css">
+</head>
+
+<body>
+    <nav>
+        <div id="sidenavbar">
+            <h2 id="user-list"> User Lists </h2>
+            <a href="{{ url_for('lists.creation_page')}}"><button class="create-list" type="button"> Create
+                    List </button></a>
+            <menu>
+                {% for u_list in user.lists %}
+                <li class="listbutton" style="float: left;"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{
+                        u_list.name }}</a>
+                    <span style="float: right;"><a href="{{ url_for('lists.list_rename_page', id=u_list.id) }}">🖊️</a>
+                        <a href="{{ url_for('lists.list_delete_page', id=u_list.id)}}">🗑️</a></span>
+                </li>
+                {% endfor %}
+            </menu>
+        </div>
+    </nav>
+
+    <a href="{{ url_for('auth.logout')}}"><button class="sign-out" type="button"> Sign Out </button></a>
+    
+    <div id="currentList">
+        <h2>Welcome Back {{user.name}}</h2>
+    </div>
+
+</body>
+
+</html>

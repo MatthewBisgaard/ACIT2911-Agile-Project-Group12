@@ -2,9 +2,10 @@ from pathlib import Path
 from flask import Flask, render_template, request
 from db import db
 from routes import list_route, reminders_route, auth_route
-from flask_login import LoginManager
+from flask_login import LoginManager, login_required, current_user
 import secrets
-from models import User
+from models import *
+from datetime import datetime as dt
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex().encode()
@@ -36,6 +37,13 @@ app.register_blueprint(auth_route, url_prefix="/auth")
 def root_page():
     """ Function used for the homepage of the application """
     return "Flask is operational"
+
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    """ Serves the user dashboard page. It is meant to serve as an overview of thier lists, independant of them owning a list """
+    return render_template("user_dashboard.html", user=current_user)
+
 
 if __name__=="__main__":
     app.run(debug=True, port=3000)

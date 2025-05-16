@@ -8,11 +8,11 @@
 </head>
 <body>
     <h1>Create List</h1>
-    <form>
+    <form id="list-creation" action="{{ url_for('lists.list_created')}}" method="post">
       <label for="list-name">List Name:</label>
       <input type="text" id="list-name" name="list-name"><br><br>
       
-      <button type="submit" onclick="alert('List created')">Create List</button>
+      <button type="submit" onclick="alert('List created')">Create List</button></a>
     </form>
 </body>
 </html>
