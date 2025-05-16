@@ -82,46 +82,67 @@ def add_reminder_to_list(id):
     session.commit()
     return redirect(url_for("lists.get_list", id=id))
 
-@list_route.route("/create_list/<int:id>}", methods=["GET"])
-def creation_page(id):
+@list_route.route("/create_list", methods=["GET"])
+@login_required
+def creation_page():
     """ Serves the list creation page """
-    return render_template("create-list.html", user=id)
+    return render_template("create-list.html", user=current_user.id)
 
-@list_route.route("/create_list/<int:id>/completion", methods=["POST"])
-def list_created(id):
+@list_route.route("/create_list/completion", methods=["POST"])
+@login_required
+def list_created():
     """Creating the list with info user provided"""
     session = db.session
     form = request.form
-    new_list = List(name=form["list-name"], user=session.execute(db.select(User).where(User.id == id)).scalar())
+    new_list = List(name=form["list-name"], user=session.execute(db.select(User).where(User.id == current_user.id)).scalar())
     session.add(new_list)
     session.commit()
     return redirect(url_for("lists.get_list", id=new_list.id))
 
 @list_route.route("/rename_list/<int:id>", methods=["GET"])
+@login_required
 def list_rename_page(id):
     """Sends the HTML Rename page to the user"""
     session = db.session
-    return render_template("rename-list.html", list=session.execute(db.select(List).where(List.id == id)).scalar())
+    list = session.execute(db.select(List).where(List.id == id)).scalar()
+    user = current_user
+    if user.is_anonymous or list.user.id != user.id:
+        return render_template("error.html", message="Forbidden", code=403), 403 
+
+    return render_template("rename-list.html", list=list)
 
 @list_route.route("/rename_list/<int:id>/completion", methods=["POST"])
+@login_required
 def list_rename_done(id):
     """Completing the rename list"""
     session = db.session
     form = request.form
     current_list = session.execute(db.select(List).where(List.id == id)).scalar()
+
+    user = current_user
+    if user.is_anonymous or current_list.user.id != user.id:
+        return render_template("error.html", message="Forbidden", code=403), 403 
+
     current_list.name = form["new-list-name"]
     session.add(current_list)
     session.commit()
     return redirect(url_for("lists.get_list", id=current_list.id))
 
 @list_route.route("/delete_list/<int:id>", methods=["GET"])
+@login_required
 def list_delete_page(id):
     """ This will get the delete confirmaation page for the user"""
     session = db.session
-    return render_template("delete-list.html", list=session.execute(db.select(List).where(List.id == id)).scalar())
+    current_list = session.execute(db.select(List).where(List.id == id)).scalar()
+
+    user = current_user
+    if user.is_anonymous or current_list.user.id != user.id:
+        return render_template("error.html", message="Forbidden", code=403), 403 
+
+    return render_template("delete-list.html", list=current_list)
 
 @list_route.route("/delete_list/<int:id>/completion", methods=["POST"])
-# @login_required
+@login_required
 def list_delete_done(id):
     """ This will get the delete confirmaation page for the user"""
     session = db.session
@@ -131,11 +152,12 @@ def list_delete_done(id):
         return render_template("error.html", message=f"List does not exist", code = 404), 404
     
     # Check ownership
-    # if current_user.is_anonymous or current_list.user.id != current_user.id:
-    #     return render_template("error.html", message="Forbidden", code=403), 403
+    user = current_user
+    if current_user.is_anonymous or current_list.user.id != current_user.id:
+        return render_template("error.html", message="Forbidden", code=403), 403
 
     db.session.delete(current_list)
     db.session.commit()    
     
-    return redirect(url_for("lists.get_list", id=1))
+    return redirect(url_for("dashboard"))
 
