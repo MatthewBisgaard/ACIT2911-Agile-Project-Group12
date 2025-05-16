@@ -4,22 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="../static/signup.css">
+    <link rel="stylesheet" href="/static/signup.css">
 </head>
 <body>
     <video autoplay loop muted>
         <source src="/static/resources/wave.mp4" type="video/mp4">
     </video>
+    <a href="{{ url_for('auth.login') }}"><button>Sign-In</button></a>
     <div id="signupForm">
         <h2>Sign Up</h2>
 
-        <form action="">
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username" placeholder="Username"><br>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" placeholder="Password"><br><br>
-        <input type="submit" value="Submit">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" placeholder="Name"><br><br>
+
+        <label for="password">Password:</label>
+        <p id="password-requirements">Must be 8 characters long.</p>
+        <input type="password" id="password" name="password" placeholder="Password"><br>
+        <label for="password">Confirm Password:</label><br>
+        <input type="password" id="confirm" name="confirm" placeholder="Password"><br><br>
+
+        <form action="{{ url_for('auth.signup') }}" method="post" id="main-form">
+            <input type="text" id="hiddenusername" name="username" hidden="true">
+            <input type="text" id="hashpasswd" name="hashpasswd" hidden="true">
+            <input type="text" id="hidden-name" name="name" hidden="true">
         </form> 
+        <input type="submit" value="Submit" id="submit" disabled="true" onclick="startSignup()">
     </div>
+    <script src="/static/js/signUpPageInteractivity.js"></script>
+    <script src="/static/js/passwordHashing.js"></script>
 </body>
 </html>

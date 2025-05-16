@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/create-list.css">
     <title>Create List</title>
 </head>
 <body>
     <h1>Create List</h1>
-    <form>
+    <form id="list-creation" action="{{ url_for('lists.list_created')}}" method="post">
       <label for="list-name">List Name:</label>
       <input type="text" id="list-name" name="list-name"><br><br>
       
-      <button type="submit" onclick="alert('List created')">Create List</button>
+      <button type="submit" onclick="alert('List created')">Create List</button></a>
     </form>
 </body>
 </html>
