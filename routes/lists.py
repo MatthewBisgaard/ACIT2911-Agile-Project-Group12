@@ -161,3 +161,29 @@ def list_delete_done(id):
     
     return redirect(url_for("dashboard"))
 
+@list_route.route("/<int:id>/delete-complete", methods = ["GET", "POST"])
+@login_required
+def delete_complete(id):
+    """ Deletes all completed reminders in a given list  """
+    current_list = db.session.execute(db.select(List).where(List.id == id)).scalar()
+    if current_list is None: # check if the list exists and return a 404 error if it does not
+        return render_template("error.html", code=404, message="Could not find that list"), 404
+    
+    # Auth Check
+    user = current_user
+    if current_user.is_anonymous or current_list.user.id != current_user.id:
+        return render_template("error.html", message="Forbidden", code=403), 403
+    
+    if request.method == "GET":
+        return render_template("post-confirm-dialogue.html", question=f'Delete all completed reminders on "{current_list.name}"', confirm_text="Delete", cancel_text="Cancel", action=url_for("lists.delete_complete", id=id))
+    
+    result = request.form.get("result", None)
+    if result == "confirm":
+        for todo in current_list.todos:
+            if todo.complete:
+                db.session.delete(todo)
+        db.session.commit()
+
+    return redirect(url_for('lists.get_list', id = current_list.id))
+
+
