@@ -27,7 +27,8 @@
         <a href="{{ url_for('lists.creation_page', id=user.id)}}"><button class="create-list" type="button"> Create List </button></a>
                 <menu>
                     {% for u_list in user.lists %}
-                    <li class="listbutton" style="float: left;"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{ u_list.name }}</a><span style="float: right;"><a href="{{ url_for('lists.list_rename_page', id=list.id) }}">🖊️</a><a href="">🗑️</a></span></li>
+                    <li class="listbutton" style="float: left;"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{ u_list.name }}</a>
+                        <span style="float: right;"><a href="{{ url_for('lists.list_rename_page', id=list.id) }}">🖊️</a><a href="{{ url_for('lists.list_delete_page', id=list.id)}}">🗑️</a></span></li>
                     {% endfor %}
                 </menu>
     </div>
@@ -36,7 +37,6 @@
             <h2 class="app-name"> Things-To-Do </h2>
 
             <button class="sign-out" type="button"> Sign Out </button>
-            <a href="{{ url_for('lists.creation_page', id=user.id)}}"><button class="create-list" type="button"> Create List </button></a>
 
                 <h2> {{list.name}} </h2>
                 <table class="lined thick">

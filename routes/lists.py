@@ -90,6 +90,7 @@ def list_delete_page(id):
     return render_template("delete-list.html", list=session.execute(db.select(List).where(List.id == id)).scalar())
 
 @list_route.route("/delete_list/<int:id>/completion", methods=["POST"])
+# @login_required
 def list_delete_done(id):
     """ This will get the delete confirmaation page for the user"""
     session = db.session
@@ -99,8 +100,8 @@ def list_delete_done(id):
         return render_template("error.html", message=f"List does not exist", code = 404), 404
     
     # Check ownership
-    if current_user.is_anonymous or current_list.rem_list.user.id != current_user.id:
-        return render_template("error.html", message="Forbidden", code=403), 403
+    # if current_user.is_anonymous or current_list.user.id != current_user.id:
+    #     return render_template("error.html", message="Forbidden", code=403), 403
 
     db.session.delete(current_list)
     db.session.commit()    

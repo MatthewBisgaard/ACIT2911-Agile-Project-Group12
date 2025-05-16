@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="/static/delete-list.css">
 </head>
 <body>
-    <h2>Are you sure you would like to delete {{list.name}}</h2>
-    <form action="" method="post" id="delete-list-form">
-        <button name="confirm" type="submit" value="confirm">Confirm</button>
-        <button name="cancel" type="button" value="cancel" onclick="history.back()">Cancel</button>
+    <h2>Are you sure you would like to delete "{{list.name}}"</h2>
+    <form action="{{ url_for('lists.list_delete_done' ,id=list.id)}}" method="post" id="delete-list-form">
+        <a href=""><button name="confirm" type="submit" value="confirm">Confirm</button></a>
+        <a href="javascript:history.back()"><button name="cancel" type="button" value="cancel" onclick="history.back()">Cancel</button></a>
     </form>
 </body>
 </html>
