@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.name }}'s Dashboard</title>
+    <link rel="stylesheet" href="/static/todolist.css">
+</head>
+
+<body>
+    <nav>
+        <div id="sidenavbar">
+            <h2 id="user-list"> User Lists </h2>
+            <button class="create-list" type="button"> Create List </button>
+            <menu>
+                {% for u_list in user.lists %}
+                <li class="listbutton" style="float: left;"><a href="{{ url_for('lists.get_list', id=u_list.id) }}">{{
+                        u_list.name }}</a><span style="float: right;"><a href="">🖊️</a><a href="">🗑️</a></span></li>
+                {% endfor %}
+            </menu>
+        </div>
+    </nav>
+
+    <div id="currentList">
+        <h2>Welcome Back {{user.name}}</h2>
+        <!-- {% if reminders.count() is ne 0 %}
+        <p>Overdue reminders:</p>
+        <table>
+            <tr>
+            <th>Title</th>
+            <th>List Name</th>
+            <th>Due</th>
+            </tr>
+            {% for reminder in reminders.scalars() %}
+            <tr>
+                <p></p>
+                <td>{{ reminder.title }}</td>
+                <td>{{ reminder.rem_list.name }}</td>
+                <td>{{ reminder.due() }}</td>
+            </tr>
+                {% endfor %}
+        </table>
+        {% endif %}
+    -->
+    </div>
+
+</body>
+
+</html>

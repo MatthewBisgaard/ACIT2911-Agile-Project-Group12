@@ -35,8 +35,7 @@
     <div id="list-container">
         <div id="currentList">
             <h2 class="app-name"> Things-To-Do </h2>
-
-            <button class="sign-out" type="button"> Sign Out </button>
+                <a href="{{ url_for('auth.logout')}}"><button class="sign-out" type="button"> Sign Out </button></a>
 
                 <h2> {{list.name}} </h2>
                 <table class="lined thick">
@@ -48,13 +47,14 @@
                             <th>Actions:</th>   
                     </tr>
 
-                    {%for item in list.todos%} 
+                    {%for item in reminders%} 
                         <tr>
                             <td id="box1">{{item.title}}</td>
                             <td id="box2">{{item.description}}</td>
                             <td id="box3">{% if item.deadline is ne none %} {{item.deadline.strftime("%d-%m-%Y %H:%M")}} {% else %} No Deadline {% endif %}</td>
                             <td id="box4"> {{item.due()}}</td>
-                            <td id="box5"><form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id)}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
+                            <td id="box5">
+                            <form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id, show=request.args.get('show', None), order=request.args.get('order', None) )}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
                                 <input type="submit" value="{% if not item.complete %} Complete {% else %} Undo-Complete {% endif %}">
                             </form>
                                 <a href="{{ url_for('reminders.edit_item', id=item.id)}}"><button type="button"> Edit </button></a>
@@ -63,11 +63,17 @@
                     {%endfor%}
                     <a href="{{ url_for('lists.add_reminder_to_list', id=list.id) }}"> <button class="add-item" type="button"> Add Item </button></a>
                 </table>
-                
-                <button type="button"> Show Completed Tasks </button>
-                <button class="delete-completed-item" type="button"> Delete Completed Reminders </button></a>    
+                            <button id="toggle-completed" onclick="toggleCompleteShow()" type="button"></button>
+                        <button class="delete-completed-item" type="button"> Delete Completed Reminders </button> <br>
+            <label>Sort by:</label>
+            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'deadline')">Urgency</button>
+            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'title')">Title</button>
+            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'created')">Date Created</button>
+  
         </div>
+  
     </div>
+<script src="/static/js/queryUpdate.js"></script>
 </body>
 
 </html>
