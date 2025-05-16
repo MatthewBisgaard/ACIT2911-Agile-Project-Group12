@@ -22,13 +22,25 @@
     margin-right: auto;
     display: block;
 }
+.table-wrapper { /* made so that the table and add item button always stays aligned */
+    position: relative;
+    width: fit-content;
+
+}
 
 .add-item { 
+    position: absolute;
+    right: 20px;
+    top: -10px;  
+}
+
+.delete-completed-item {
     /* Need to fix this button */
 }
 
-.delete-completed-item{
-    /* Need to fix this button */
+.show-completed-tasks {
+    margin-left: 13px;
+    margin-top: 5px;
 }
 
 .listbutton {
@@ -55,7 +67,7 @@
 
 #currentList {
     margin: auto;
-    width: 50%;
+    width:50%;
     position: relative;
 }
 
@@ -115,6 +127,12 @@ a {
     text-align: left;
 
 }
+/* Breaks words and sentences into new line so doesn't create long horizontal line */
+td, th {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
 
 button, input {
     transition: 0.3s;
@@ -125,8 +143,11 @@ input:hover, button:hover {
     background-color: rgba(0, 0, 0, 0.185);
 }
 
+
 table.lined.thick{
    border:solid 3px #41403E;
+   table-layout: fixed; /* fixes width of table. ensures it stays same dimensions */
+   width: 1000px; /* Fixed width size of table */
    background: transparent;
    padding:0.5rem 0.5rem;
    margin:0 0.5rem;
@@ -139,8 +160,8 @@ table.lined.thick{
 
 button, input {
     background: transparent;
-    padding:0.5rem 0.5rem;
-    margin:0 0.5rem;
+    /* padding:0.5rem 0.5rem;
+    margin:0 0.5rem; */
     font-size:1rem;
     border-top-left-radius: 255px 15px;
     border-top-right-radius: 15px 225px;
