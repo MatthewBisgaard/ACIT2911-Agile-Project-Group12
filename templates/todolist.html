@@ -66,7 +66,7 @@
             </div>
                 
                             <button id="toggle-completed" onclick="toggleCompleteShow()" type="button"></button>
-                        <button class="delete-completed-item" type="button"> Delete Completed Reminders </button> <br>
+                        <a href="{{ url_for('lists.delete_complete', id=list.id) }}"><button class="delete-completed-item" type="button"> Delete Completed Reminders </button></a> <br>
             <label>Sort by:</label>
             <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'deadline')">Urgency</button>
             <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'title')">Title</button>

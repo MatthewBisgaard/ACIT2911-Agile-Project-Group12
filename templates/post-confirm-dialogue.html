@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm?</title>
+</head>
+<body>
+    <h2>{{ question }}</h2>
+    <form method="post" action="{{ action }}">
+        <input type="text" value="cancel" name="result" hidden="true">
+        <input type="submit" value="{{cancel_text}}">
+    </form>
+    <form method="post" action="{{ action }}">
+        <input type="text" value="confirm" name="result" hidden="true">
+        <input type="submit" value="{{confirm_text}}">
+    </form>
+
+</body>
+</html>
