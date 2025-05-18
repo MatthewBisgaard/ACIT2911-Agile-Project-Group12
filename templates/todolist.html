@@ -50,7 +50,7 @@
                         </tr>
 
                         {%for item in reminders%} 
-                            <tr>
+                            <tr class="{{item.colour_helper()}}">
                                 <td id="box1">{{item.title}}</td>
                                 <td id="box2">{{item.description}}</td>
                                 <td id="box3">{% if item.deadline is ne none %} {{item.deadline.strftime("%d-%m-%Y %H:%M")}} {% else %} No Deadline {% endif %}</td>
