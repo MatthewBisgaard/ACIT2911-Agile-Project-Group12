@@ -175,7 +175,7 @@ def delete_complete(id):
         return render_template("error.html", message="Forbidden", code=403), 403
     
     if request.method == "GET":
-        return render_template("post-confirm-dialogue.html", question=f'Delete all completed reminders on "{current_list.name}"', confirm_text="Delete", cancel_text="Cancel", action=url_for("lists.delete_complete", id=id))
+        return render_template("post-confirm-dialogue.html", question=f'Delete all completed reminders on "{current_list.name}"', confirm_text="Delete", cancel_text="Cancel", action=url_for("lists.delete_complete", id=id, **request.args))
     
     result = request.form.get("result", None)
     if result == "confirm":
@@ -184,6 +184,6 @@ def delete_complete(id):
                 db.session.delete(todo)
         db.session.commit()
 
-    return redirect(url_for('lists.get_list', id = current_list.id))
+    return redirect(url_for('lists.get_list', id = current_list.id, **request.args))
 
 
