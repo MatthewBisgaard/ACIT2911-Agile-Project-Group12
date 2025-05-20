@@ -1,4 +1,7 @@
-#loginForm {
+body {
+    background-image: url("/static/resources/lined-paper.png");
+}
+#loginForm, #signupForm {
     margin: auto;
     width: 50%;
     text-align: center;
