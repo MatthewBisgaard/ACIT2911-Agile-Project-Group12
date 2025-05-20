@@ -86,6 +86,13 @@ def test_unauthenticated_edit_get_and_post(client):
     res = client.get(f"/auth/login")
     assert b"It appears you are not signed in. Please sign in here." in res.data
 
+# List routes =======================================================
+
+def test_unauthenticated_get_list(client):
+    """ Test that you cannot access a list when not signed in """
+    res = client.get("/lists/1")
+    assert res.status_code == 302 # redirects to login
+
 
 # Test unauthorized use of routes
 
@@ -114,6 +121,9 @@ def test_unauthorized_edit_get_and_post(client_authed):
     })
     assert res.status_code == 403 # No permission to post
 
-
+def test_unauthorized_get_list(client_authed):
+    """ Test that you cannot access a list when you dont own it """
+    res = client_authed.get("/lists/1")
+    assert res.status_code == 403 # redirects to login
 
 
