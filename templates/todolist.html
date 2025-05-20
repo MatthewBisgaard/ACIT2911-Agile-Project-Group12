@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="/static/todolist.css">
+
     <link href="https://fonts.cdnfonts.com/css/pencil-2" rel="stylesheet"> 
       <!-- #Font Choice 1           -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +19,7 @@
             border: 1px solid black ;
         }
     </style>
-    <link rel="stylesheet" href="/static/todolist.css">
+
 </head>
 
 <body>
@@ -49,11 +51,20 @@
                                 <th>Actions:</th>   
                         </tr>
 
+                        <div class="dropdown">
+                            <button onclick="dropdownfunction()" class="dropbutton">Sort By</button>
+                            <div id="dropdownbuttons" class="dropdown-content">
+                                <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'deadline')">Urgency</button>
+                                <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'title')">Title</button>
+                                <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'created')">Date Created</button>
+                            </div>
+                        </div>
+
                         {%for item in reminders%} 
                             <tr>
                                 <td id="box1">{{item.title}}</td>
                                 <td id="box2">{{item.description}}</td>
-                                <td id="box3">{% if item.deadline is ne none %} {{item.deadline.strftime("%d-%m-%Y %H:%M")}} {% else %} No Deadline {% endif %} fjdksfjdsklfjldsfjdskfjldsjfldjsfjdsklfjlk</td>
+                                <td id="box3">{% if item.deadline is ne none %} {{item.deadline.strftime("%d-%m-%Y %H:%M")}} {% else %} No Deadline {% endif %}</td>
                                 <td id="box4"> {{item.due()}}</td>
                                 <td id="box5"><form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id)}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id)}}{% endif %}" method="post">
                                     <input type="submit" value="{% if not item.complete %} Complete {% else %} Undo-Complete {% endif %}">
@@ -67,14 +78,11 @@
                 
                             <button id="toggle-completed" onclick="toggleCompleteShow()" type="button"></button>
                         <a href="{{ url_for('lists.delete_complete', id=list.id) }}"><button class="delete-completed-item" type="button"> Delete Completed Reminders </button></a> <br>
-            <label>Sort by:</label>
-            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'deadline')">Urgency</button>
-            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'title')">Title</button>
-            <button style="margin-left: 0px; margin-right:0px;" onclick="updateURL('order', 'created')">Date Created</button>
         </div>
   
     </div>
 <script src="/static/js/queryUpdate.js"></script>
+<script src="/static/js/dropdown.js"></script>
 </body>
 
 </html>
