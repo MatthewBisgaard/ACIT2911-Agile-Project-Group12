@@ -36,9 +36,9 @@ jobs:
     steps:
       - name: Create pull request
         run: |
+          prs=$(gh pr list)
+          if [[ $prs != *"Merge dev into main"* ]]; then
           gh pr create -B main -H ${{ github.ref_name }} --title "Merge ${{ github.ref_name }} into main" --body "Automated PR via Github Actions"
-          if [[ $? -ne 0 ]]; then
-          exit 0
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
