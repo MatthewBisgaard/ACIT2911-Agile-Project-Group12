@@ -35,7 +35,7 @@ def mark_reminder_completed_route(id):
     db.session.add(reminder)
     db.session.commit()
 
-    return redirect(url_for("lists.get_list", id=reminder.rem_list.id))
+    return redirect(url_for("lists.get_list", id=reminder.rem_list.id, **request.args))
 
 @reminders_route.route("/de-complete/<int:id>", methods=["POST", "PUT"])
 @login_required
@@ -64,7 +64,7 @@ def mark_reminder_incomplete_route(id):
     db.session.add(reminder)
     db.session.commit()
 
-    return redirect(url_for("lists.get_list", id=reminder.rem_list.id))
+    return redirect(url_for("lists.get_list", id=reminder.rem_list.id, **request.args))
 
 @reminders_route.route("/edit/<int:id>", methods=["GET"])
 @login_required
@@ -100,7 +100,7 @@ def done_edit(id):
     current_item.deadline = auto_date_parse(form["deadline"])
     session.add(current_item)
     session.commit()
-    return redirect(url_for("lists.get_list", id=current_item.rem_list.id))
+    return redirect(url_for("lists.get_list", id=current_item.rem_list.id, **request.args))
 
 @reminders_route.route("/remove/<int:id>", methods=["GET"])
 @login_required
@@ -114,9 +114,9 @@ def rm_todo(id):
     if current_user.is_anonymous or current_item.rem_list.user.id != current_user.id:
         return render_template("error.html", message="Forbidden", code=403), 403
 
-    item_id = current_item.rem_list.id
+    list_id = current_item.rem_list.id
 
     db.session.delete(current_item)
     db.session.commit()    
     
-    return redirect(url_for("lists.get_list", id=item_id))
+    return redirect(url_for("lists.get_list", id=list_id, **request.args))
