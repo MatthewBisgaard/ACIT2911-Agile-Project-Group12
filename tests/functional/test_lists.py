@@ -21,17 +21,15 @@ def add_test_list(client):
     """
 
     unique_name = str(uuid4())
-    res = client.post("/lists/1/add", data={
-        "item-name": unique_name, 
-        "description": f"{unique_name}desc", 
-        "deadline":"2029-03-09T11:32"
+    res = client.post("/lists/create_list/completion", data={
+        "list-name": unique_name 
     })
     return unique_name
   
 def add_test_todo(client):
     """
     Test utility function:\n
-    Adds a test todo via the item and returns uuid coresponding to the title of the test todo
+    Adds a test list via the item and returns uuid coresponding to the title of the test todo
     """
     unique_name = str(uuid4())
     res = client.post("/lists/1/add", data={
@@ -53,7 +51,7 @@ def fetch_item_by_uuid(uuid_string):
 def fetch_list_by_uuid(uuid_string):
     """
     Test Utility function:\n
-    Grabs a todo item directly from db by its title (a UUID for tests writted by Matthew)
+    Grabs a list directly from db by its title (a UUID for tests writted by Matthew)
     """
     with app.app_context():
         remlist = db.session.execute(db.select(List).where(List.name == uuid_string)).scalar()
