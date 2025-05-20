@@ -52,6 +52,10 @@ class Todo(db.Model):
         """ A helper function for the coloring functionality\n
 Returns a string indicating the class of the due date (See todolist.css)
 If complete or more than 2 days away returns an empty string"""
+        # Return empty string if not deadline
+        if self.deadline is None:
+            return ""
+        
         now = dt.datetime.now()
         diff = self.deadline - now
         # Return empty string if due dat is more than 2 days away or already complete
