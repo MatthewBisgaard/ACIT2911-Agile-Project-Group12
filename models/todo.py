@@ -48,14 +48,27 @@ class Todo(db.Model):
         minute_string = f"{minutes} Minute"+ ("" if minutes == 1 else "s")
         return f"{hour_string}{minute_string}{past_tense_string}"
             
-            
+    def colour_helper(self):
+        """ A helper function for the coloring functionality\n
+Returns a string indicating the class of the due date (See todolist.css)
+If complete or more than 2 days away returns an empty string"""
+        now = dt.datetime.now()
+        diff = self.deadline - now
+        # Return empty string if due dat is more than 2 days away or already complete
+        if diff.days >= 2 or self.complete:
+            return ""
+        
+        # If deadlien is less than now assume overdue
+        if now >= self.deadline:
+            return "overDue"
+        
+        # If 1 day away return due tomorrow
+        if diff.days == 1 :
+            return "dueTomorrow"
+        
+        # Return due today as at this point we know it is this
+        return "dueToday"
 
-
-
-            
-            
-
-
-            
-            
-            
+    def color_helper(self):
+        """ A wrapper for colour_helper for those who spell like an American """
+        return self.colour_helper()        
