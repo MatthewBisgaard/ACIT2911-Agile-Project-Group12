@@ -50,9 +50,10 @@
                         </tr>
 
                         {%for item in reminders%} 
-                            <tr>
-                                <td id="box1">{{item.title}}</td>
-                                <td id="box2">{{item.description}}</td>
+                            
+                            <tr class="{{item.colour_helper()}}">
+                                <td id="box1">{% if item.complete %}<s>{{item.title}}</s>{% else %}{{item.title}}{% endif %}</td>
+                                <td id="box2">{% if item.complete %}<s>{{item.description}}</s>{% else %}{{item.description}}{% endif %}</td>
                                 <td id="box3">{% if item.deadline is ne none %} {{item.deadline.strftime("%d-%m-%Y %H:%M")}} {% else %} No Deadline {% endif %}</td>
                                 <td id="box4"> {{item.due()}}</td>
                                 <td id="box5"><form action="{% if not item.complete %}{{ url_for('reminders.mark_reminder_completed_route', id=item.id, **request.args)}}{% else %}{{ url_for('reminders.mark_reminder_incomplete_route', id=item.id, **request.args)}}{% endif %}" method="post">
