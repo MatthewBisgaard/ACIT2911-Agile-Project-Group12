@@ -94,10 +94,17 @@ def list_created():
     """Creating the list with info user provided"""
     session = db.session
     form = request.form
-    new_list = List(name=form["list-name"], user=session.execute(db.select(User).where(User.id == current_user.id)).scalar())
-    session.add(new_list)
-    session.commit()
-    return redirect(url_for("lists.get_list", id=new_list.id))
+    check = session.execute(db.select(List).where(List.name == form["list-name"])).scalar() #Will return a None, if the name doesn't exist  
+    if check is None: #if check is None then it will create the new list object
+        new_list = List(           
+            name= form["list-name"], 
+            user=session.execute(db.select(User).where(User.id == current_user.id)).scalar())
+        session.add(new_list)
+        session.commit()
+        return redirect(url_for("lists.get_list", id=new_list.id))
+    else: #If its not None then that means that it already exist
+        return redirect(url_for("dashboard"))
+
 
 @list_route.route("/rename_list/<int:id>", methods=["GET"])
 @login_required
