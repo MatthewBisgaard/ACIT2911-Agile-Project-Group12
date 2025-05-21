@@ -11,4 +11,4 @@ class List(db.Model):
     user = db.relationship("User", back_populates="lists")
     
     # Link to Todo items
-    todos = db.relationship("Todo", back_populates="rem_list")
+    todos = db.relationship("Todo", back_populates="rem_list", cascade="all, delete")
