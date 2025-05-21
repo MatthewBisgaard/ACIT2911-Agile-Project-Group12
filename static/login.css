@@ -1,21 +1,20 @@
-#loginForm {
+body {
+    background-image: url("/static/resources/lined-paper.png");
+}
+#loginForm, #signupForm {
     margin: auto;
     width: 50%;
     text-align: center;
 }
 
-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    object-fit: cover;
-    z-index: -1;
-}
-
-h2 {
-    color: white;
-}
-
-label {
-    color: white;
+input, button {
+    font-family:"Pangolin";
+    background: transparent;
+    padding:0.5rem 0.5rem;
+    margin:0 0.5rem;
+    font-size:1rem;
+    border-top-left-radius: 230px 20px;
+    border-top-right-radius: 200px 20px;
+    border-bottom-right-radius: 218px 30px;
+    border-bottom-left-radius:15px 255px;
 }

@@ -136,3 +136,38 @@ def test_delete_route_returns_404_if_not_found(client):
     client.get(f"/reminders/remove/{todo.id}")
     res = client.get(f"/reminders/remove/{todo.id}")
     assert res.status_code == 404
+
+def test_reminder_complete_and_de_complete_return_404(client):
+    """ Checks to make sure you get a 404 error trying to complete or de-complete a reminder that does not exist """
+    # Create a reminder to be deleted so we know th ID will not be in the db
+    todo_name = add_test_todo(client)
+    todo_id = fetch_item_by_uuid(todo_name).id
+    with app.app_context():
+        todo = db.session.execute(db.select(Todo).where(Todo.id == todo_id)).scalar()
+        db.session.delete(todo)
+        db.session.commit()
+
+    # Complete and decomplete
+    res = client.post(f"/reminders/complete/{todo_id}")
+    assert res.status_code == 404 # Non existant reminder cannot be marked as complete
+
+    res = client.post(f"/reminders/de-complete/{todo_id}")
+    assert res.status_code == 404 # Non existant reminder cannot be marked as incomplete
+    
+
+def test_edit_reminder_returns_404(client):
+    # Create a reminder to be deleted so we know th ID will not be in the db
+    todo_name = add_test_todo(client)
+    todo_id = fetch_item_by_uuid(todo_name).id
+    with app.app_context():
+        todo = db.session.execute(db.select(Todo).where(Todo.id == todo_id)).scalar()
+        db.session.delete(todo)
+        db.session.commit()
+
+    # Test reminder edit routes
+    res = client.get(f"/reminders/edit/{todo_id}")
+    assert res.status_code == 404 # Cannot get the edit page for a non existant reminder
+    
+    res = client.post(f"/reminders/edit/{todo_id}/completion")
+    assert res.status_code == 404 # Cannot submit the form for a non existant reminder
+

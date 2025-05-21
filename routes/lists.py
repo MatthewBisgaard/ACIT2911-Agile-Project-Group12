@@ -104,12 +104,15 @@ def list_created():
 def list_rename_page(id):
     """Sends the HTML Rename page to the user"""
     session = db.session
-    list = session.execute(db.select(List).where(List.id == id)).scalar()
+    current_list = session.execute(db.select(List).where(List.id == id)).scalar()
+    if current_list is None:
+        return render_template("error.html", message="Cannot edit a list that does not exist", code=404), 404
+
     user = current_user
-    if user.is_anonymous or list.user.id != user.id:
+    if user.is_anonymous or current_list.user.id != user.id:
         return render_template("error.html", message="Forbidden", code=403), 403 
 
-    return render_template("rename-list.html", list=list)
+    return render_template("rename-list.html", list=current_list)
 
 @list_route.route("/rename_list/<int:id>/completion", methods=["POST"])
 @login_required
@@ -118,6 +121,8 @@ def list_rename_done(id):
     session = db.session
     form = request.form
     current_list = session.execute(db.select(List).where(List.id == id)).scalar()
+    if current_list is None: # check that the list exists
+        return render_template("error.html", message="Cannot edit a list that does not exist", code=404), 404
 
     user = current_user
     if user.is_anonymous or current_list.user.id != user.id:
@@ -134,6 +139,8 @@ def list_delete_page(id):
     """ This will get the delete confirmaation page for the user"""
     session = db.session
     current_list = session.execute(db.select(List).where(List.id == id)).scalar()
+    if current_list is None: # check that the list exists
+        return render_template("error.html", message="Cannot delete a list that does not exist", code=404), 404
 
     user = current_user
     if user.is_anonymous or current_list.user.id != user.id:
@@ -175,7 +182,7 @@ def delete_complete(id):
         return render_template("error.html", message="Forbidden", code=403), 403
     
     if request.method == "GET":
-        return render_template("post-confirm-dialogue.html", question=f'Delete all completed reminders on "{current_list.name}"', confirm_text="Delete", cancel_text="Cancel", action=url_for("lists.delete_complete", id=id))
+        return render_template("post-confirm-dialogue.html", question=f'Delete all completed reminders on "{current_list.name}"', confirm_text="Delete", cancel_text="Cancel", action=url_for("lists.delete_complete", id=id, **request.args))
     
     result = request.form.get("result", None)
     if result == "confirm":
@@ -184,6 +191,6 @@ def delete_complete(id):
                 db.session.delete(todo)
         db.session.commit()
 
-    return redirect(url_for('lists.get_list', id = current_list.id))
+    return redirect(url_for('lists.get_list', id = current_list.id, **request.args))
 
 
