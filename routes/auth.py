@@ -95,7 +95,7 @@ def signup():
     
     # Login the user and send them to their homepage
     login_user(new_user)
-    return redirect(url_for("root_page")) # NOTE: Needs to be changed
+    return redirect(url_for("dashboard")) # NOTE: Needs to be changed
 
 
 @auth_route.route("/exists/<string:username>", methods=["GET"])
