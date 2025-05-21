@@ -36,7 +36,7 @@ app.register_blueprint(auth_route, url_prefix="/auth")
 @app.route("/")
 def root_page():
     """ Function used for the homepage of the application """
-    return "Flask is operational"
+    return render_template("homepage.html")
 
 @app.route("/dashboard")
 @login_required
