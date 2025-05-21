@@ -15,7 +15,7 @@ app.register_blueprint(reminders_route, url_prefix="/reminders")
 @app.route("/")
 def root_page():
     """ Function used for the homepage of the application """
-    return "Flask is operational"
+    return render_template("homepage.html")
 
 if __name__=="__main__":
     app.run(debug=True, port=3000)
