@@ -2,27 +2,38 @@
     max-width: fit-content;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f900;
-}
-
-#add-item-form {
-    width: 100%;
-    padding: 20px;
 }
 
 h2 {
     text-align: center;
-    color: white;
+    margin: 0px;
+    margin-bottom: 20px;
 }
 
-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    object-fit: cover;
-    z-index: -1;
+body {
+    background-image: url("/static/resources/lined-paper.png"); /* Background Image */
+    font-family:"Pencil", sans-serif; /* Font 1*/
+    font-family:"Pangolin"; /* Font 2*/
+    background-color: beige;/* Accent Colours (temporary) */
+    color: black; /* Font colour */
 }
 
-label {
-    color: white;
+button, input, table, textarea {
+    background: transparent;
+    padding:0.5rem 0.5rem;
+    margin:0 0.5rem;
+    font-size:1rem;
+    border: 2px solid black;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-bottom-right-radius: 225px 15px;
+    border-bottom-left-radius:15px 255px;
+}
+
+button {
+    transition: 0.3s;
+}
+
+button:hover {
+    font-size: larger;
 }
